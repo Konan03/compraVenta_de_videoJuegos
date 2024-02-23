@@ -31,4 +31,13 @@ public class VideoJuegoFisico extends VideoJuego{
     public void setEmpaque(String empaque) {
         this.empaque = empaque;
     }
+
+    @Override
+    public String toString() {
+        return "VideoJuegoFisico{" +
+                super.toString() +
+                "estado='" + estado + '\'' +
+                ", empaque='" + empaque + '\'' +
+                '}';
+    }
 }

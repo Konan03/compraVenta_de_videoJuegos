@@ -100,5 +100,18 @@ public abstract class VideoJuego {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
-
+    @Override
+    public String toString() {
+        return "VideoJuego{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", precio=" + precio +
+                ", stock=" + stock +
+                ", descripcion='" + descripcion + '\'' +
+                ", plataforma='" + plataforma + '\'' +
+                ", genero='" + genero + '\'' +
+                ", calificacionEdad='" + calificacionEdad + '\'' +
+                ", fechaLanzamiento=" + fechaLanzamiento +
+                '}';
+    }
 }
