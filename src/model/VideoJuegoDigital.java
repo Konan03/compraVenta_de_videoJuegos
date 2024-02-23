@@ -31,4 +31,13 @@ public class VideoJuegoDigital extends VideoJuego{
     public void setExpiracionClave(LocalDate expiracionClave) {
         this.expiracionClave = expiracionClave;
     }
+
+    @Override
+    public String toString() {
+        return "VideoJuegoDigital{" +
+                super.toString() +
+                "claveActivacion='" + claveActivacion + '\'' +
+                ", expiracionClave=" + expiracionClave +
+                '}';
+    }
 }
