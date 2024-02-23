@@ -11,12 +11,13 @@ import static controller.ControllerVideoJuego.agregarVideoJuego;
 public class Main {
     public static void main(String[] args) {
 
-        //GUIPrincipal guiPrincipal = new GUIPrincipal();
-        //guiPrincipal.setVisible(true);
+        GUIPrincipal guiPrincipal = new GUIPrincipal();
+        guiPrincipal.setVisible(true);
 
 
         //Pruebas
 
+        /*
         VideoJuego juego1 = new VideoJuegoDigital(1, "The Witcher 3", 59.99, 100,
                 "RPG de mundo abierto", "PC",
                 "Fantasía", "18+", LocalDate.of(2015, 5, 19),
@@ -38,6 +39,6 @@ public class Main {
         VideoJuego juegoActualizado = new VideoJuegoDigital(1, "The Witcher 3: Wild Hunt", 69.99, 120, "RPG de mundo abierto mejorado", "PC", "Fantasía", "18+", LocalDate.of(2015, 5, 19), "clave123", LocalDate.of(2025, 12, 31));
         ControllerVideoJuego.actualizarVideojuego(1, juegoActualizado);
 
-
+        */
     }
 }
