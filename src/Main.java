@@ -11,8 +11,8 @@ import static controller.ControllerVideoJuego.agregarVideoJuego;
 public class Main {
     public static void main(String[] args) {
 
-        //GUIPrincipal guiPrincipal = new GUIPrincipal();
-        //guiPrincipal.setVisible(true);
+        GUIPrincipal guiPrincipal = new GUIPrincipal();
+        guiPrincipal.setVisible(true);
 
 
         //Pruebas
