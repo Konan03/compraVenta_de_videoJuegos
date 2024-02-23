@@ -7,7 +7,10 @@ public class VideoJuegoDigital extends VideoJuego{
     private String claveActivacion;
     private LocalDate expiracionClave;
 
-    public VideoJuegoDigital(int id, String nombre, double precio, int stock, String descripcion, String plataforma, String genero, String calificacionEdad, LocalDate fechaLanzamiento, String calveActivacion, LocalDate expiracionClave) {
+    public VideoJuegoDigital(int id, String nombre, double precio, int stock,
+                             String descripcion, String plataforma, String genero,
+                             String calificacionEdad, LocalDate fechaLanzamiento, String calveActivacion,
+                             LocalDate expiracionClave) {
         super(id, nombre, precio, stock, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento);
         this.claveActivacion = calveActivacion;
         this.expiracionClave = expiracionClave;
