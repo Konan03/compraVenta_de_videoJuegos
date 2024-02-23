@@ -92,6 +92,7 @@ public class GUIPrincipal extends JFrame {
             Color color = new Color(86, 133, 176);
             JLabel selec = new JLabel("Seleccione el tipo");
             selec.setHorizontalAlignment(JLabel.CENTER);
+            selec.setForeground(Color.WHITE);
             JButton op1 = new JButton("Fisico");
             JButton op2 = new JButton("Digital");
             Dimension buttonSize = new Dimension(80, 40);
@@ -111,10 +112,16 @@ public class GUIPrincipal extends JFrame {
             seleccionar.add(buttonPanel, BorderLayout.SOUTH);
 
            op1.addActionListener(e1 -> {
-               GUIAgregarFisico guiAgregar = new GUIAgregarFisico();
-               guiAgregar.setVisible(true);
+               GUIAgregarFisico guiAgregarFisico = new GUIAgregarFisico();
+               guiAgregarFisico.setVisible(true);
                seleccionar.dispose();
            } );
+
+            op2.addActionListener(e2 -> {
+                GUIAgregarDigital guiAgregarDigital = new GUIAgregarDigital();
+                guiAgregarDigital.setVisible(true);
+                seleccionar.dispose();
+            } );
 
 
         });
