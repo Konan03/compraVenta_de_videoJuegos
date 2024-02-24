@@ -9,7 +9,7 @@ public class VideoJuegoFisico extends VideoJuego{
 
     public VideoJuegoFisico(int id, String nombre, double precio, int stock,
                             String descripcion, String plataforma, String genero,
-                            String calificacionEdad, LocalDate fechaLanzamiento, String estado, String empaque) {
+                            String calificacionEdad, String fechaLanzamiento, String estado, String empaque) {
 
         super(id, nombre, precio, stock, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento);
         this.estado = estado;

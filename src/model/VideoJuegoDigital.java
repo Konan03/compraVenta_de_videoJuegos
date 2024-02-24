@@ -5,12 +5,12 @@ import java.time.LocalDate;
 public class VideoJuegoDigital extends VideoJuego{
 
     private String claveActivacion;
-    private LocalDate expiracionClave;
+    private String expiracionClave;
 
     public VideoJuegoDigital(int id, String nombre, double precio, int stock,
                              String descripcion, String plataforma, String genero,
-                             String calificacionEdad, LocalDate fechaLanzamiento, String calveActivacion,
-                             LocalDate expiracionClave) {
+                             String calificacionEdad, String fechaLanzamiento, String calveActivacion,
+                             String expiracionClave) {
         super(id, nombre, precio, stock, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento);
         this.claveActivacion = calveActivacion;
         this.expiracionClave = expiracionClave;
@@ -24,11 +24,11 @@ public class VideoJuegoDigital extends VideoJuego{
         this.claveActivacion = claveActivacion;
     }
 
-    public LocalDate getExpiracionClave() {
+    public String getExpiracionClave() {
         return expiracionClave;
     }
 
-    public void setExpiracionClave(LocalDate expiracionClave) {
+    public void setExpiracionClave(String expiracionClave) {
         this.expiracionClave = expiracionClave;
     }
 

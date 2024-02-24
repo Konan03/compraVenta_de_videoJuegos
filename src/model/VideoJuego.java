@@ -12,11 +12,11 @@ public abstract class VideoJuego {
     private String plataforma;
     private String genero;
     private String calificacionEdad;
-    private LocalDate fechaLanzamiento;
+    private String fechaLanzamiento;
 
     public VideoJuego(int id, String nombre, double precio, int stock,
                       String descripcion, String plataforma, String genero,
-                      String calificacionEdad, LocalDate fechaLanzamiento) {
+                      String calificacionEdad, String fechaLanzamiento) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -92,11 +92,11 @@ public abstract class VideoJuego {
         this.calificacionEdad = calificacionEdad;
     }
 
-    public LocalDate getFechaLanzamiento() {
+    public String getFechaLanzamiento() {
         return fechaLanzamiento;
     }
 
-    public void setFechaLanzamiento(LocalDate fechaLanzamiento) {
+    public void setFechaLanzamiento(String fechaLanzamiento) {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
