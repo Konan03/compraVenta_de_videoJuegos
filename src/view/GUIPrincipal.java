@@ -136,11 +136,7 @@ public class GUIPrincipal extends JFrame {
         });
     }
 
-    public static void main(String[] args) {
 
-                new GUIPrincipal().setVisible(true);
-
-        }
 }
 
 

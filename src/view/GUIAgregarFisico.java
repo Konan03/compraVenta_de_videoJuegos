@@ -152,7 +152,7 @@ public class GUIAgregarFisico extends JFrame{
                 VideoJuego nuevoVideoJuego = new VideoJuegoFisico(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, estado, empaque);
 
 
-               ControllerVideoJuego.agregarVideoJuego(nuevoVideoJuego);
+                ControllerVideoJuego.agregarVideoJuego(nuevoVideoJuego);
                 JOptionPane.showMessageDialog(this, "Videojuego agregado exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (Exception ex) {
