@@ -1,8 +1,19 @@
 package view;
 
+import controller.ControllerVideoJuego;
+import model.VideoJuego;
+import model.VideoJuegoFisico;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import static controller.ControllerVideoJuego.agregarVideoJuego;
 
 public class GUIAgregarFisico extends JFrame{
 
@@ -11,7 +22,7 @@ public class GUIAgregarFisico extends JFrame{
 
     private JTextArea descripcionTexto;
     private JLabel idLabel, nombreLabel, precioLabel, stockLabel, descripcionLabel,
-            plataformaLabel, generoLabel, calificacionEdadLabel, estadoLabel, empaqueLabel;
+            plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, estadoLabel, empaqueLabel;
     private JButton agregarBTN;
 
     public GUIAgregarFisico()  {
@@ -23,15 +34,15 @@ public class GUIAgregarFisico extends JFrame{
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
         JPanel panelLabels = new JPanel();
-        panelLabels.setLayout(new GridLayout(10,1));
+        panelLabels.setLayout(new GridLayout(11,1));
         panelLabels.setBackground(color);
         JPanel panelTexto = new JPanel();
-        panelTexto.setLayout(new GridLayout(10,1));
+        panelTexto.setLayout(new GridLayout(11,1));
         panelTexto.setBackground(color);
 
         setTitle("Agregar video juego");
         setSize(500, 500);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
         setResizable(false);
         setLocationRelativeTo(null);
@@ -54,6 +65,8 @@ public class GUIAgregarFisico extends JFrame{
         generoLabel.setHorizontalAlignment(JLabel.CENTER);
         calificacionEdadLabel = new JLabel("Edad Minima: ");
         calificacionEdadLabel.setHorizontalAlignment(JLabel.CENTER);
+        fechaLanzamientoLabel= new JLabel("Fecha Lanzamiento: ");
+        fechaLanzamientoLabel.setHorizontalAlignment(JLabel.CENTER);
         estadoLabel = new JLabel("Estado: ");
         estadoLabel.setHorizontalAlignment(JLabel.CENTER);
         empaqueLabel = new JLabel("Empaque: ");
@@ -75,6 +88,8 @@ public class GUIAgregarFisico extends JFrame{
         generoTexto.setBorder(grayBorder);
         calificacionEdadTexto = new JTextField();
         calificacionEdadTexto.setBorder(grayBorder);
+        fechaLanzamientotexto = new JTextField();
+        fechaLanzamientotexto.setBorder(grayBorder);
         estadoTexto = new JTextField();
         estadoTexto.setBorder(grayBorder);
         empaqueTexto = new JTextField();
@@ -90,6 +105,7 @@ public class GUIAgregarFisico extends JFrame{
         panelLabels.add(plataformaLabel);
         panelLabels.add(generoLabel);
         panelLabels.add(calificacionEdadLabel);
+        panelLabels.add(fechaLanzamientoLabel);
         panelLabels.add(estadoLabel);
         panelLabels.add(empaqueLabel);
 
@@ -101,6 +117,7 @@ public class GUIAgregarFisico extends JFrame{
         panelTexto.add(plataformaTexto);
         panelTexto.add(generoTexto);
         panelTexto.add(calificacionEdadTexto);
+        panelTexto.add(fechaLanzamientotexto);
         panelTexto.add(estadoTexto);
         panelTexto.add(empaqueTexto);
 
@@ -109,8 +126,42 @@ public class GUIAgregarFisico extends JFrame{
         add(panelTexto, BorderLayout.CENTER);
         add(agregarBTN, BorderLayout.SOUTH);
 
+        agregarBTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                agregarVideoJuego();
+            }
+        });
+    }
 
+        private void agregarVideoJuego() {
+            try {
+                int idint = Integer.parseInt(idTexto.getText());
+                String nombre = nombreTexto.getText();
+                double precioDouble = Double.parseDouble(precioTexto.getText());
+                int stockint = Integer.parseInt(stockTexto.getText());
+                String descripcion = descripcionTexto.getText();
+                String plataforma = plataformaTexto.getText();
+                String genero = generoTexto.getText();
+                String calificacionEdad = calificacionEdadTexto.getText();
+                String fechaLanzamiento = fechaLanzamientotexto.getText(); // Debe ser fechaLanzamientotexto
+                String estado = estadoTexto.getText(); // Debe ser estadoTexto
+                String empaque = empaqueTexto.getText();
+
+
+                VideoJuego nuevoVideoJuego = new VideoJuegoFisico(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, estado, empaque);
+
+
+               ControllerVideoJuego.agregarVideoJuego(nuevoVideoJuego);
+                JOptionPane.showMessageDialog(this, "Videojuego agregado exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al agregar el videojuego: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
 
 
     }
-}
+
+
+

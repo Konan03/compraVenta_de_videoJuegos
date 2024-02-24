@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GUIPrincipal extends JFrame {
 
@@ -25,11 +27,18 @@ public class GUIPrincipal extends JFrame {
 
         setTitle("Compra y venta de video juegos");
         setSize(500, 500);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLayout(new BorderLayout());
         setResizable(false);
         setLocationRelativeTo(null);
         getContentPane().setBackground(color);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                GUIPrincipal.this.setVisible(false);
+            }
+        });
 
         //iniciamos opciones, autores, el menu y el logo
         opciones = new JMenu("Opciones");
@@ -74,7 +83,7 @@ public class GUIPrincipal extends JFrame {
             @Override
             public void menuSelected(MenuEvent e) {
                 JOptionPane.showMessageDialog(GUIPrincipal.this,
-                        "Jose Manuel Caicedo Perdomo....agreguen sus nombres xd",
+                        "Jose Manuel Caicedo Perdomo\nJuan David Gonzales\nSebastian Murillo\nMariana Millan",
                         "Autores",
                         JOptionPane.INFORMATION_MESSAGE);
             }
@@ -126,6 +135,15 @@ public class GUIPrincipal extends JFrame {
 
         });
     }
+
+    public static void main(String[] args) {
+
+                new GUIPrincipal().setVisible(true);
+
+        }
 }
+
+
+
 
 
