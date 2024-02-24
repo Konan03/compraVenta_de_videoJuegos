@@ -134,6 +134,11 @@ public class GUIPrincipal extends JFrame {
 
 
         });
+
+        item2.addActionListener(e -> {
+            GUIEliminar guiEliminar = new GUIEliminar();
+            guiEliminar.setVisible(true);
+        });
     }
 
 
