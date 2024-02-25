@@ -1,8 +1,12 @@
 package view;
 
+import controller.ControllerVideoJuego;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GUIEliminar extends JFrame {
     private JLabel idLabel, nombreLabel;
@@ -79,6 +83,43 @@ public class GUIEliminar extends JFrame {
         add(panelInvisible4, BorderLayout.WEST);
         add(panelFinal, BorderLayout.CENTER);
         add(eliminarBTN, BorderLayout.SOUTH);
+
+        eliminarBTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String idStr = idTexto.getText().trim();
+                String nombre = nombreTexto.getText().trim();
+
+                if (!idStr.isEmpty()) {
+                    eliminarPorId(idStr);
+                } else if (!nombre.isEmpty()) {
+                    eliminarPorNombre(nombre);
+                } else {
+                    JOptionPane.showMessageDialog(GUIEliminar.this, "Por favor, introduzca un ID o un nombre para eliminar.", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+    }
+
+    public void eliminarPorId(String idStr) {
+        try {
+            int id = Integer.parseInt(idStr);
+            ControllerVideoJuego.eliminarVideoJuego(id);
+            JOptionPane.showMessageDialog(this, "Videojuego eliminado por id exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "ID inválido, debe ser un número entero.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void eliminarPorNombre(String nombre) {
+        try {
+            ControllerVideoJuego.eliminarVideoJuego(nombre);
+            JOptionPane.showMessageDialog(this, "Videojuego eliminado por nombre exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Nombre inválido", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
 }
