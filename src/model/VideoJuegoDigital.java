@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public class VideoJuegoDigital extends VideoJuego{
+public class VideoJuegoDigital extends VideoJuego {
 
     private String claveActivacion;
     private String expiracionClave;
@@ -40,4 +40,5 @@ public class VideoJuegoDigital extends VideoJuego{
                 ", expiracionClave=" + expiracionClave +
                 '}';
     }
+
 }

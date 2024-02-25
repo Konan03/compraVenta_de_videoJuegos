@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public class VideoJuegoFisico extends VideoJuego{
+public class VideoJuegoFisico extends VideoJuego implements IDecuentoAplicable {
 
     private String estado;
     private String empaque;
@@ -39,5 +39,10 @@ public class VideoJuegoFisico extends VideoJuego{
                 "estado='" + estado + '\'' +
                 ", empaque='" + empaque + '\'' +
                 '}';
+    }
+
+    @Override
+    public double aplicarDescuento() {
+        return (getPrecio() * 0.90);
     }
 }
