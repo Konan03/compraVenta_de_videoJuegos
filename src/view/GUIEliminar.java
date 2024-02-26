@@ -8,16 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUIEliminar extends JFrame {
+public class GUIEliminar extends JFrame implements IGUIEstilos {
     private JLabel idLabel, nombreLabel;
     private JTextField idTexto, nombreTexto;
     private JButton eliminarBTN;
 
     public GUIEliminar(){
-
-        Color color = new Color(86, 133, 176);
-        Border grayBorder = BorderFactory.createLineBorder(Color.GRAY, 1);
-        Dimension tamanioTexto = new Dimension(100, 20);
 
         JPanel panelFinal = new JPanel();
         JPanel panelInvisible = new JPanel();
@@ -25,15 +21,15 @@ public class GUIEliminar extends JFrame {
         JPanel panelInvisible3 = new JPanel();
         JPanel panelInvisible4 = new JPanel();
         panelFinal.setLayout(new BorderLayout());
-        panelFinal.setBackground(color);
+        panelFinal.setBackground(COLOR);
         panelInvisible.setPreferredSize(new Dimension(100, 150));
-        panelInvisible.setBackground(color);
+        panelInvisible.setBackground(COLOR);
         panelInvisible2.setPreferredSize(new Dimension(100, 100));
-        panelInvisible2.setBackground(color);
+        panelInvisible2.setBackground(COLOR);
         panelInvisible3.setPreferredSize(new Dimension(100, 150));
-        panelInvisible3.setBackground(color);
+        panelInvisible3.setBackground(COLOR);
         panelInvisible4.setPreferredSize(new Dimension(100, 150));
-        panelInvisible4.setBackground(color);
+        panelInvisible4.setBackground(COLOR);
 
         JLabel titulo = new JLabel("Ingrese el Id o el Nombre del juego a eliminar");
         Font fuenteActual = titulo.getFont();
@@ -42,10 +38,10 @@ public class GUIEliminar extends JFrame {
 
         JPanel panelLabels = new JPanel();
         panelLabels.setLayout(new GridLayout(2,1));
-        panelLabels.setBackground(color);
+        panelLabels.setBackground(COLOR);
         JPanel panelTexto = new JPanel();
         panelTexto.setLayout(new GridLayout(2,1));
-        panelTexto.setBackground(color);
+        panelTexto.setBackground(COLOR);
 
         setTitle("Eliminar video juego");
         setSize(500, 500);
@@ -53,7 +49,7 @@ public class GUIEliminar extends JFrame {
         setLayout(new BorderLayout());
         setResizable(false);
         setLocationRelativeTo(null);
-        getContentPane().setBackground(color);
+        getContentPane().setBackground(COLOR);
 
         idLabel = new JLabel("Id: ");
         idLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -61,9 +57,9 @@ public class GUIEliminar extends JFrame {
         nombreLabel.setHorizontalAlignment(JLabel.CENTER);
 
         idTexto = new JTextField();
-        idTexto.setBorder(grayBorder);
+        idTexto.setBorder(GRAY_BORDER);
         nombreTexto = new JTextField();
-        nombreTexto.setBorder(grayBorder);
+        nombreTexto.setBorder(GRAY_BORDER);
 
         eliminarBTN = new JButton("Eliminar");
 
