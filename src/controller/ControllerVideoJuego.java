@@ -38,7 +38,7 @@ public class ControllerVideoJuego {
     }
 
     public static void eliminarVideoJuego(String nombre) {
-        videoJuegos.removeIf(videoJuego -> nombre.equals(videoJuego.getNombre()));
+        videoJuegos.removeIf(videoJuego -> nombre.equalsIgnoreCase(videoJuego.getNombre()));
     }
 
     public static void actualizarVideojuego(int id, VideoJuego videoJuegoActualizado) {
