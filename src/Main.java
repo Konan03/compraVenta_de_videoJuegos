@@ -4,7 +4,6 @@ import model.VideoJuegoDigital;
 import model.VideoJuegoFisico;
 import view.GUIPrincipal;
 
-import java.time.LocalDate;
 
 import static controller.ControllerVideoJuego.agregarVideoJuego;
 
