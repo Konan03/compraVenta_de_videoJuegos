@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class GUIAgregarFisico extends JFrame{
+public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
 
     private JTextField idTexto, nombreTexto, precioTexto, stockTexto,
             plataformaTexto, generoTexto, calificacionEdadTexto, fechaLanzamientotexto, estadoTexto, empaqueTexto;
@@ -23,18 +23,16 @@ public class GUIAgregarFisico extends JFrame{
 
     public GUIAgregarFisico()  {
 
-        Color color = new Color(86, 133, 176);
-        Border grayBorder = BorderFactory.createLineBorder(Color.GRAY, 1);
         JLabel titulo = new JLabel("Agregar juego fisico");
         Font fuenteActual = titulo.getFont();
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
         JPanel panelLabels = new JPanel();
         panelLabels.setLayout(new GridLayout(11,1));
-        panelLabels.setBackground(color);
+        panelLabels.setBackground(COLOR);
         JPanel panelTexto = new JPanel();
         panelTexto.setLayout(new GridLayout(11,1));
-        panelTexto.setBackground(color);
+        panelTexto.setBackground(COLOR);
 
         setTitle("Agregar video juego");
         setSize(500, 500);
@@ -43,7 +41,7 @@ public class GUIAgregarFisico extends JFrame{
         setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        getContentPane().setBackground(color);
+        getContentPane().setBackground(COLOR);
 
         idLabel = new JLabel("Id: ");
         idLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -69,27 +67,27 @@ public class GUIAgregarFisico extends JFrame{
         empaqueLabel.setHorizontalAlignment(JLabel.CENTER);
 
         idTexto = new JTextField();
-        idTexto.setBorder(grayBorder);
+        idTexto.setBorder(GRAY_BORDER);
         nombreTexto = new JTextField();
-        nombreTexto.setBorder(grayBorder);
+        nombreTexto.setBorder(GRAY_BORDER);
         precioTexto = new JTextField();
-        precioTexto.setBorder(grayBorder);
+        precioTexto.setBorder(GRAY_BORDER);
         stockTexto = new JTextField();
-        stockTexto.setBorder(grayBorder);
+        stockTexto.setBorder(GRAY_BORDER);
         descripcionTexto = new JTextArea();
-        descripcionTexto.setBorder(grayBorder);
+        descripcionTexto.setBorder(GRAY_BORDER);
         plataformaTexto = new JTextField();
-        plataformaTexto.setBorder(grayBorder);
+        plataformaTexto.setBorder(GRAY_BORDER);
         generoTexto = new JTextField();
-        generoTexto.setBorder(grayBorder);
+        generoTexto.setBorder(GRAY_BORDER);
         calificacionEdadTexto = new JTextField();
-        calificacionEdadTexto.setBorder(grayBorder);
+        calificacionEdadTexto.setBorder(GRAY_BORDER);
         fechaLanzamientotexto = new JTextField();
-        fechaLanzamientotexto.setBorder(grayBorder);
+        fechaLanzamientotexto.setBorder(GRAY_BORDER);
         estadoTexto = new JTextField();
-        estadoTexto.setBorder(grayBorder);
+        estadoTexto.setBorder(GRAY_BORDER);
         empaqueTexto = new JTextField();
-        empaqueTexto.setBorder(grayBorder);
+        empaqueTexto.setBorder(GRAY_BORDER);
 
         agregarBTN = new JButton("Agregar");
 

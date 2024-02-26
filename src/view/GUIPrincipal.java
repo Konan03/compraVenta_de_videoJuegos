@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class GUIPrincipal extends JFrame {
+public class GUIPrincipal extends JFrame implements IGUIEstilos {
 
     private JMenu opciones;
     private JMenu autores;
@@ -22,7 +22,6 @@ public class GUIPrincipal extends JFrame {
     public GUIPrincipal() {
 
         //iniciamos los valores del color y el logo
-        Color color = new Color(86, 133, 176);
         ImageIcon URLimagen = new ImageIcon(getClass().getResource("/data/img/logo_sin_fondo.png"));
 
         setTitle("Compra y venta de video juegos");
@@ -31,7 +30,7 @@ public class GUIPrincipal extends JFrame {
         setLayout(new BorderLayout());
         setResizable(false);
         setLocationRelativeTo(null);
-        getContentPane().setBackground(color);
+        getContentPane().setBackground(COLOR);
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -106,7 +105,7 @@ public class GUIPrincipal extends JFrame {
             JButton op2 = new JButton("Digital");
             Dimension buttonSize = new Dimension(80, 40);
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            buttonPanel.setBackground(color);
+            buttonPanel.setBackground(COLOR);
             buttonPanel.add(op1);
             buttonPanel.add(op2);
             op1.setPreferredSize(buttonSize);
@@ -115,7 +114,7 @@ public class GUIPrincipal extends JFrame {
             seleccionar.setVisible(true);
             seleccionar.setResizable(false);
             seleccionar.setLocationRelativeTo(null);
-            seleccionar.getContentPane().setBackground(color);
+            seleccionar.getContentPane().setBackground(COLOR);
             seleccionar.setLayout(new BorderLayout());
             seleccionar.add(selec, BorderLayout.NORTH);
             seleccionar.add(buttonPanel, BorderLayout.SOUTH);
