@@ -100,6 +100,8 @@ public abstract class VideoJuego {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
+    public abstract boolean validarVideoJuego();
+
     @Override
     public String toString() {
         return "VideoJuego{" +

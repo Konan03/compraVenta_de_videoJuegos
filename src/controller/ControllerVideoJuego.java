@@ -13,17 +13,28 @@ public class ControllerVideoJuego {
 
     public static void agregarVideoJuego(VideoJuego videoJuego) {
         if (videoJuego != null) {
-            boolean existe = false;
-            for (VideoJuego v : videoJuegos) {
-                if (videoJuego.getNombre().equals(v.getNombre())) {
-                    existe = true;
-                    break;
+            if (videoJuego.validarVideoJuego()) {
+                if (!existeId(videoJuego.getId())) {
+                    videoJuegos.add(videoJuego);
+                    System.out.println("Videojuego agregado correctamente.");
+                } else {
+                    System.out.println("Error: Ya existe un videojuego con ese ID.");
                 }
+            } else {
+                System.out.println("Error: Campos inválidos para el videojuego.");
             }
-            if (!existe) {
-                videoJuegos.add(videoJuego);
+        } else {
+            System.out.println("Error: Videojuego nulo.");
+        }
+    }
+
+    private static boolean existeId(int id) {
+        for (VideoJuego v : videoJuegos) {
+            if (v.getId() == id) {
+                return true;
             }
         }
+        return false;
     }
 
     public static void eliminarVideoJuego(int id) {

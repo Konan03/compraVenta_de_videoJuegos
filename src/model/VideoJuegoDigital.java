@@ -41,4 +41,8 @@ public class VideoJuegoDigital extends VideoJuego {
                 '}';
     }
 
+    @Override
+    public boolean validarVideoJuego() {
+        return getClaveActivacion() != null && getExpiracionClave() != null && !getClaveActivacion().isEmpty() && !getExpiracionClave().isEmpty();
+    }
 }
