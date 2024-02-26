@@ -11,20 +11,20 @@ public class ControllerVideoJuego {
 
     private static List<VideoJuego> videoJuegos = new ArrayList<>();
 
-    public static void agregarVideoJuego(VideoJuego videoJuego) {
+    public static void agregarVideoJuego(VideoJuego videoJuego) throws RuntimeException {
         if (videoJuego != null) {
             if (videoJuego.validarVideoJuego()) {
                 if (!existeId(videoJuego.getId())) {
                     videoJuegos.add(videoJuego);
                     System.out.println("Videojuego agregado correctamente.");
                 } else {
-                    System.out.println("Error: Ya existe un videojuego con ese ID.");
+                    throw new RuntimeException("Error: Ya existe un videojuego con ese ID.");
                 }
             } else {
-                System.out.println("Error: Campos inválidos para el videojuego.");
+                throw new RuntimeException("Error: Campos inválidos para el videojuego.");
             }
         } else {
-            System.out.println("Error: Videojuego nulo.");
+            throw new RuntimeException("Error: Videojuego nulo.");
         }
     }
 
