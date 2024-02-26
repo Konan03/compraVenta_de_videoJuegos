@@ -1,5 +1,7 @@
 package view;
 
+import controller.ControllerVideoJuego;
+
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -18,6 +20,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     private JMenuItem item3;
     private JMenuItem item4;
     private JMenuItem item5;
+
 
     public GUIPrincipal() {
 
@@ -96,40 +99,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
 
         item1.addActionListener(e -> {
 
-            JFrame seleccionar = new JFrame();
-            Color color = new Color(86, 133, 176);
-            JLabel selec = new JLabel("Seleccione el tipo");
-            selec.setHorizontalAlignment(JLabel.CENTER);
-            selec.setForeground(Color.WHITE);
-            JButton op1 = new JButton("Fisico");
-            JButton op2 = new JButton("Digital");
-            Dimension buttonSize = new Dimension(80, 40);
-            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            buttonPanel.setBackground(COLOR);
-            buttonPanel.add(op1);
-            buttonPanel.add(op2);
-            op1.setPreferredSize(buttonSize);
-            op2.setPreferredSize(buttonSize);
-            seleccionar.setSize(200, 120);
-            seleccionar.setVisible(true);
-            seleccionar.setResizable(false);
-            seleccionar.setLocationRelativeTo(null);
-            seleccionar.getContentPane().setBackground(COLOR);
-            seleccionar.setLayout(new BorderLayout());
-            seleccionar.add(selec, BorderLayout.NORTH);
-            seleccionar.add(buttonPanel, BorderLayout.SOUTH);
-
-           op1.addActionListener(e1 -> {
-               GUIAgregarFisico guiAgregarFisico = new GUIAgregarFisico();
-               guiAgregarFisico.setVisible(true);
-               seleccionar.dispose();
-           } );
-
-            op2.addActionListener(e2 -> {
-                GUIAgregarDigital guiAgregarDigital = new GUIAgregarDigital();
-                guiAgregarDigital.setVisible(true);
-                seleccionar.dispose();
-            } );
+            GUISeleccionar guiSeleccionar = new GUISeleccionar();
+            guiSeleccionar.setVisible(true);
 
 
         });
@@ -137,6 +108,19 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         item2.addActionListener(e -> {
             GUIEliminar guiEliminar = new GUIEliminar();
             guiEliminar.setVisible(true);
+        });
+
+        item3.addActionListener(e -> {
+
+        });
+
+        item4.addActionListener(e -> {
+            ControllerVideoJuego.listarVideoJuegos();
+        });
+
+        item5.addActionListener(e -> {
+            GUIBuscar guiBuscar = new GUIBuscar();
+            guiBuscar.setVisible(true);
         });
     }
 
