@@ -3,23 +3,31 @@ package view;
 import controller.ControllerVideoJuego;
 import model.VideoJuego;
 import model.VideoJuegoFisico;
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 
 public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
 
     private JTextField idTexto, nombreTexto, precioTexto, stockTexto,
-            plataformaTexto, generoTexto, calificacionEdadTexto, fechaLanzamientotexto, estadoTexto, empaqueTexto;
+            plataformaTexto, generoTexto, calificacionEdadTexto, estadoTexto, empaqueTexto;
 
     private JTextArea descripcionTexto;
     private JLabel idLabel, nombreLabel, precioLabel, stockLabel, descripcionLabel,
             plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, estadoLabel, empaqueLabel;
     private JButton agregarBTN;
+
+    UtilDateModel model = new UtilDateModel();
+    JDatePanelImpl datePanel = new JDatePanelImpl(model);
+    JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
 
     public GUIAgregarFisico()  {
 
@@ -82,8 +90,8 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         generoTexto.setBorder(GRAY_BORDER);
         calificacionEdadTexto = new JTextField();
         calificacionEdadTexto.setBorder(GRAY_BORDER);
-        fechaLanzamientotexto = new JTextField();
-        fechaLanzamientotexto.setBorder(GRAY_BORDER);
+        //fechaLanzamientotexto = new JTextField();
+        datePicker.setBorder(GRAY_BORDER);
         estadoTexto = new JTextField();
         estadoTexto.setBorder(GRAY_BORDER);
         empaqueTexto = new JTextField();
@@ -111,7 +119,7 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         panelTexto.add(plataformaTexto);
         panelTexto.add(generoTexto);
         panelTexto.add(calificacionEdadTexto);
-        panelTexto.add(fechaLanzamientotexto);
+        panelTexto.add(datePicker);
         panelTexto.add(estadoTexto);
         panelTexto.add(empaqueTexto);
 
@@ -138,8 +146,9 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
                 String plataforma = plataformaTexto.getText();
                 String genero = generoTexto.getText();
                 String calificacionEdad = calificacionEdadTexto.getText();
-                String fechaLanzamiento = fechaLanzamientotexto.getText(); // Debe ser fechaLanzamientotexto
-                String estado = estadoTexto.getText(); // Debe ser estadoTexto
+                Date seleccionFecha = (Date) datePicker.getModel().getValue();
+                String fechaLanzamiento = seleccionFecha.toString();
+                String estado = estadoTexto.getText();
                 String empaque = empaqueTexto.getText();
 
 
