@@ -78,6 +78,16 @@ public class ControllerVideoJuego {
         return null;
     }
 
+    public static VideoJuego buscarVideoJuegoPorNombre(String nombre) {
+        for (VideoJuego videojuego : videoJuegos) {
+            if (videojuego.getNombre().equalsIgnoreCase(nombre)) {
+                return videojuego;
+            }
+        }
+        return null;
+    }
+
+
     public static List<VideoJuego> buscarVideoJuego(String nombre) {
         List<VideoJuego> resultados = new ArrayList<>();
         for (VideoJuego videojuego : videoJuegos) {

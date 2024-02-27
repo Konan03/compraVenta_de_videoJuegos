@@ -5,11 +5,15 @@ import java.awt.*;
 
 public class GUISeleccionar extends JFrame implements IGUIEstilos {
 
+    private JLabel selec;
+
+    private JButton op1, op2;
+
     public GUISeleccionar(){
-        JLabel selec = new JLabel("Seleccione el tipo");
+        selec = new JLabel("Seleccione el tipo");
         selec.setHorizontalAlignment(JLabel.CENTER);
-        JButton op1 = new JButton("Fisico");
-        JButton op2 = new JButton("Digital");
+        op1 = new JButton("Fisico");
+        op2 = new JButton("Digital");
         Dimension buttonSize = new Dimension(80, 40);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.setBackground(COLOR);
@@ -38,4 +42,6 @@ public class GUISeleccionar extends JFrame implements IGUIEstilos {
             dispose();
         } );
     }
+
+
 }
