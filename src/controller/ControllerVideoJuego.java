@@ -65,11 +65,10 @@ public class ControllerVideoJuego {
         System.out.println("No se encontró ningún videojuego con ese ID.");
     }
 
-    public static void listarVideoJuegos() {
-        for (VideoJuego videoJuego : videoJuegos) {
-            System.out.println(videoJuego);
-        }
+    public static List<VideoJuego> listarVideoJuegos() {
+        return new ArrayList<>(videoJuegos);
     }
+
 
     public static VideoJuego buscarVideoJuego(int id) {
         for (VideoJuego videojuego : videoJuegos) {

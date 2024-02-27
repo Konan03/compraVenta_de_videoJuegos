@@ -35,11 +35,12 @@ public class VideoJuegoFisico extends VideoJuego implements IDecuentoAplicable {
     @Override
     public String toString() {
         return "VideoJuegoFisico{" +
-                super.toString() +
-                "estado='" + estado + '\'' +
-                ", empaque='" + empaque + '\'' +
-                '}';
+                "\n" + super.toString() +
+                ",\nestado='" + estado + '\'' +
+                ",\nempaque='" + empaque + '\'' +
+                "\n}";
     }
+
 
     @Override
     public double aplicarDescuento() {

@@ -35,11 +35,12 @@ public class VideoJuegoDigital extends VideoJuego {
     @Override
     public String toString() {
         return "VideoJuegoDigital{" +
-                super.toString() +
-                "claveActivacion='" + claveActivacion + '\'' +
-                ", expiracionClave=" + expiracionClave +
-                '}';
+                "\n" + super.toString() +
+                ",\nclaveActivacion='" + claveActivacion + '\'' +
+                ",\nexpiracionClave=" + expiracionClave +
+                "\n}";
     }
+
 
     @Override
     public boolean validarVideoJuego() {
