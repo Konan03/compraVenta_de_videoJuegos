@@ -38,7 +38,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                GUIPrincipal.this.setVisible(false);
+                System.exit(0);
             }
         });
 
