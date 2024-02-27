@@ -23,7 +23,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     private JMenuItem item5;
     private JMenuItem item6;
     private JMenuItem item7;
-
+    private ControllerVideoJuego videojuego;
 
     public GUIPrincipal() {
 
@@ -96,7 +96,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     public void activarOpciones() {
         item7.addActionListener(e -> {
             JOptionPane.showMessageDialog(GUIPrincipal.this,
-                    "Jose Manuel Caicedo Perdomo\nJuan David Gonzales\nSebastian Murillo\nMariana Millan",
+                    "Jose Manuel Caicedo Perdomo\nJuan David Gonzales\nSebastian Murillo\nMariana Millan\n\nv.0.1",
                     "Autores",
                     JOptionPane.INFORMATION_MESSAGE);
         });
@@ -127,7 +127,9 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         });
     }
 
-
+    public void setVideojuego(ControllerVideoJuego videojuego) {
+        this.videojuego = videojuego;
+    }
 }
 
 
