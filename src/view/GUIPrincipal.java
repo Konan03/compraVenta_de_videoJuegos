@@ -12,7 +12,8 @@ import java.awt.event.WindowEvent;
 public class GUIPrincipal extends JFrame implements IGUIEstilos {
 
     private JMenu opciones;
-    private JMenu autores;
+    private JMenu archivo;
+    private JMenu ayuda;
     private JMenuBar menuBar;
     private JLabel logo;
     private JMenuItem item1;
@@ -20,6 +21,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     private JMenuItem item3;
     private JMenuItem item4;
     private JMenuItem item5;
+    private JMenuItem item6;
+    private JMenuItem item7;
 
 
     public GUIPrincipal() {
@@ -44,7 +47,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
 
         //iniciamos opciones, autores, el menu y el logo
         opciones = new JMenu("Opciones");
-        autores = new JMenu("Autores");
+        ayuda = new JMenu("Ayuda");
+        archivo = new JMenu("Archivo");
         menuBar = new JMenuBar();
         logo = new JLabel(URLimagen);
 
@@ -54,8 +58,13 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         item3 = new JMenuItem("Actualizar");
         item4 = new JMenuItem("Listar");
         item5 = new JMenuItem("Buscar");
+        item6 = new JMenuItem("Salir");
+        item7 = new JMenuItem("Autores");
 
         //agregamos los items al menu opciones
+
+        archivo.add(item6);
+
         opciones.add(item1);
         opciones.addSeparator();
         opciones.add(item2);
@@ -66,9 +75,13 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         opciones.addSeparator();
         opciones.add(item5);
 
+        ayuda.add(item7);
+
+
         //agregamos el menu opciones y el menu autores al menuBar
+        menuBar.add(archivo);
         menuBar.add(opciones);
-        menuBar.add(autores);
+        menuBar.add(ayuda);
 
         //asignamos el menuBar
         setJMenuBar(menuBar);
@@ -81,20 +94,11 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     }
 
     public void activarOpciones() {
-        autores.addMenuListener(new MenuListener() {
-            @Override
-            public void menuSelected(MenuEvent e) {
-                JOptionPane.showMessageDialog(GUIPrincipal.this,
-                        "Jose Manuel Caicedo Perdomo\nJuan David Gonzales\nSebastian Murillo\nMariana Millan",
-                        "Autores",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            @Override
-            public void menuDeselected(MenuEvent e) {
-            }
-            @Override
-            public void menuCanceled(MenuEvent e) {
-            }
+        item7.addActionListener(e -> {
+            JOptionPane.showMessageDialog(GUIPrincipal.this,
+                    "Jose Manuel Caicedo Perdomo\nJuan David Gonzales\nSebastian Murillo\nMariana Millan",
+                    "Autores",
+                    JOptionPane.INFORMATION_MESSAGE);
         });
 
         item1.addActionListener(e -> {
