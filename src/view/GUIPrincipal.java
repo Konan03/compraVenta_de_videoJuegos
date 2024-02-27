@@ -98,11 +98,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         });
 
         item1.addActionListener(e -> {
-
             GUISeleccionar guiSeleccionar = new GUISeleccionar();
             guiSeleccionar.setVisible(true);
-
-
         });
 
         item2.addActionListener(e -> {
@@ -111,7 +108,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         });
 
         item3.addActionListener(e -> {
-
+            GUIActualizar guiActualizar = new GUIActualizar();
+            guiActualizar.setVisible(true);
         });
 
         item4.addActionListener(e -> {
