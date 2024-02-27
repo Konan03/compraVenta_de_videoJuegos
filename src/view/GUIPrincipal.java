@@ -113,7 +113,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         });
 
         item4.addActionListener(e -> {
-            ControllerVideoJuego.listarVideoJuegos();
+            GUIListar guiListar = new GUIListar();
+            guiListar.setVisible(true);
         });
 
         item5.addActionListener(e -> {

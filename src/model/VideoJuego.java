@@ -105,15 +105,16 @@ public abstract class VideoJuego {
     @Override
     public String toString() {
         return "VideoJuego{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", precio=" + precio +
-                ", stock=" + stock +
-                ", descripcion='" + descripcion + '\'' +
-                ", plataforma='" + plataforma + '\'' +
-                ", genero='" + genero + '\'' +
-                ", calificacionEdad='" + calificacionEdad + '\'' +
-                ", fechaLanzamiento=" + fechaLanzamiento +
-                '}';
+                "\nid=" + id +
+                ",\nnombre='" + nombre + '\'' +
+                ",\nprecio=" + precio +
+                ",\nstock=" + stock +
+                ",\ndescripcion='" + descripcion + '\'' +
+                ",\nplataforma='" + plataforma + '\'' +
+                ",\ngenero='" + genero + '\'' +
+                ",\ncalificacionEdad='" + calificacionEdad + '\'' +
+                ",\nfechaLanzamiento=" + fechaLanzamiento +
+                "\n}";
     }
+
 }
