@@ -8,16 +8,30 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
+
 
 public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
 
     private JTextField idTexto, nombreTexto, precioTexto, stockTexto,
-            plataformaTexto, generoTexto, calificacionEdadTexto, fechaLanzamientotexto, claveActivacionTexto, expiracionClaveTexto;
+            plataformaTexto, generoTexto, calificacionEdadTexto, claveActivacionTexto;
 
     private JTextArea descripcionTexto;
     private JLabel idLabel, nombreLabel, precioLabel, stockLabel, descripcionLabel,
             plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, claveActivacionLabel, experacionClaveLabel;
     private JButton agregarBTN;
+
+    UtilDateModel model = new UtilDateModel();
+    UtilDateModel model2 = new UtilDateModel();
+    JDatePanelImpl datePanel = new JDatePanelImpl(model2);
+    JDatePanelImpl datePanel2 = new JDatePanelImpl(model);
+    JDatePickerImpl datePicker = new JDatePickerImpl(datePanel2);
+    JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel);
+
     public GUIAgregarDigital()  {
 
         JLabel titulo = new JLabel("Agregar juego digital");
@@ -79,12 +93,12 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         generoTexto.setBorder(GRAY_BORDER);
         calificacionEdadTexto = new JTextField();
         calificacionEdadTexto.setBorder(GRAY_BORDER);
-        fechaLanzamientotexto = new JTextField();
-        fechaLanzamientotexto.setBorder(GRAY_BORDER);
+        //fechaLanzamientotexto = new JTextField();
+        datePicker.setBorder(GRAY_BORDER);
         claveActivacionTexto = new JTextField();
         claveActivacionTexto.setBorder(GRAY_BORDER);
-        expiracionClaveTexto = new JTextField();
-        expiracionClaveTexto.setBorder(GRAY_BORDER);
+        //expiracionClaveTexto = new JTextField();
+        datePicker.setBorder(GRAY_BORDER);
 
         agregarBTN = new JButton("Agregar");
 
@@ -108,9 +122,9 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         panelTexto.add(plataformaTexto);
         panelTexto.add(generoTexto);
         panelTexto.add(calificacionEdadTexto);
-        panelTexto.add(fechaLanzamientotexto);
+        panelTexto.add(datePicker);
         panelTexto.add(claveActivacionTexto);
-        panelTexto.add(expiracionClaveTexto);
+        panelTexto.add(datePicker2);
 
         add(titulo, BorderLayout.NORTH);
         add(panelLabels, BorderLayout.WEST);
@@ -135,9 +149,11 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
             String plataforma = plataformaTexto.getText();
             String genero = generoTexto.getText();
             String calificacionEdad = calificacionEdadTexto.getText();
-            String fechaLanzamiento = fechaLanzamientotexto.getText();
+            Date seleccionFecha = (Date) datePicker.getModel().getValue();
+            String fechaLanzamiento = seleccionFecha.toString();
             String claveActivacion = claveActivacionTexto.getText();
-            String expiracionClave = expiracionClaveTexto.getText();
+            Date seleccionFecha2 = (Date) datePicker2.getModel().getValue();
+            String expiracionClave = seleccionFecha2.toString();
 
 
             VideoJuego nuevoVideoJuego = new VideoJuegoDigital(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, claveActivacion,expiracionClave );
