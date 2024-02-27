@@ -1,20 +1,17 @@
 package view;
 
 import controller.ControllerVideoJuego;
-import model.VideoJuego;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class GUIBuscar extends JFrame implements IGUIEstilos {
+public class GUIActualizar extends JFrame implements IGUIEstilos {
 
     private JLabel idLabel, nombreLabel, titulo;
     private JTextField idTexto, nombreTexto;
     private JButton buscarBTN;
 
-    public GUIBuscar(){
+    public GUIActualizar(){
         JPanel panelFinal = new JPanel();
         JPanel panelInvisible = new JPanel();
         JPanel panelInvisible2 = new JPanel();
@@ -31,7 +28,7 @@ public class GUIBuscar extends JFrame implements IGUIEstilos {
         panelInvisible4.setPreferredSize(new Dimension(100, 150));
         panelInvisible4.setBackground(COLOR);
 
-        titulo = new JLabel("Ingrese el Id o el Nombre del juego a buscar");
+        titulo = new JLabel("Ingrese el Id o el Nombre del juego a actualizar");
         Font fuenteActual = titulo.getFont();
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
@@ -79,45 +76,9 @@ public class GUIBuscar extends JFrame implements IGUIEstilos {
         add(panelInvisible4, BorderLayout.WEST);
         add(panelFinal, BorderLayout.CENTER);
         add(buscarBTN, BorderLayout.SOUTH);
-
-        buscarBTN.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String idStr = idTexto.getText();
-                String nombre = nombreTexto.getText();
-
-                if (!idStr.isEmpty()) {
-                    buscarJuegoPorId(idStr);
-                } else if (!nombre.isEmpty()) {
-                    buscarPorNombre(nombre);
-                } else {
-                    JOptionPane.showMessageDialog(GUIBuscar.this, "Por favor, introduzca un ID o un nombre para eliminar.", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        });
     }
 
 
-    public void buscarJuegoPorId(String idStr){
-        try {
-            int id = Integer.parseInt(String.valueOf(idStr));
-            VideoJuego videoJuego = ControllerVideoJuego.buscarVideoJuego(id);
-            JOptionPane.showMessageDialog(this, "Videojuego encontrado " + videoJuego.toString(), "Exito", JOptionPane.INFORMATION_MESSAGE);
 
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(this, "ID inválido, no existe el video juego.", "Error", JOptionPane.ERROR_MESSAGE);
-
-        }
-    }
-
-    public void buscarPorNombre(String nombre) {
-        try {
-            VideoJuego videoJuego = ControllerVideoJuego.buscarVideoJuegoPorNombre(nombre);
-            JOptionPane.showMessageDialog(this, "Videojuego encontrado " + videoJuego.toString(), "Exito", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "ID inválido, no existe el video juego.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }
 
 }
