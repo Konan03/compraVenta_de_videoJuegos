@@ -1,5 +1,6 @@
 package controller;
 
+import model.IActualizable;
 import model.VideoJuego;
 import model.VideoJuegoDigital;
 import model.VideoJuegoFisico;
@@ -10,6 +11,7 @@ import java.util.List;
 public class ControllerVideoJuego {
 
     private static List<VideoJuego> videoJuegos = new ArrayList<>();
+    private static List<IActualizable> guiActualiza = new ArrayList<>();
 
     public static void agregarVideoJuego(VideoJuego videoJuego) throws RuntimeException {
         if (videoJuego != null) {
@@ -86,5 +88,15 @@ public class ControllerVideoJuego {
             }
         }
         return resultados;
+    }
+
+    public void addActualizable(IActualizable actualizable){
+        guiActualiza.add(actualizable);
+    }
+
+    public void actualizar(){
+        for (IActualizable act : guiActualiza){
+            act.actualizar();
+        }
     }
 }
