@@ -82,8 +82,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         opciones.add(item4);
         opciones.addSeparator();
         opciones.add(item5);
-        opciones.add(item8);
         opciones.addSeparator();
+        opciones.add(item8);
 
 
         ayuda.add(item7);
