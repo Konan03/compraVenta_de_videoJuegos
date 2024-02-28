@@ -135,10 +135,7 @@ public class GUIAplicarDescuento extends JFrame implements IGUIEstilos {
 
             JOptionPane.showMessageDialog(this, mensaje, "Resultado del Descuento", JOptionPane.INFORMATION_MESSAGE);
         }
-
-
     }
-
 }
 
 
