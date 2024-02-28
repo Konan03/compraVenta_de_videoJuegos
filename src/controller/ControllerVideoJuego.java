@@ -2,9 +2,6 @@ package controller;
 
 import model.IActualizable;
 import model.VideoJuego;
-import model.VideoJuegoDigital;
-import model.VideoJuegoFisico;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +10,21 @@ public class ControllerVideoJuego {
     private static List<VideoJuego> videoJuegos = new ArrayList<>();
     private static List<IActualizable> guiActualiza = new ArrayList<>();
 
+    public static List<VideoJuego> getVideoJuegos() {
+        return videoJuegos;
+    }
+
+    public static void setVideoJuegos(List<VideoJuego> videoJuegos) {
+        ControllerVideoJuego.videoJuegos = videoJuegos;
+    }
+
     public static void agregarVideoJuego(VideoJuego videoJuego) throws RuntimeException {
         if (videoJuego != null) {
             if (videoJuego.validarVideoJuego()) {
                 if (!existeId(videoJuego.getId())) {
                     videoJuegos.add(videoJuego);
                     System.out.println("Videojuego agregado correctamente.");
+                    actualizar();
                 } else {
                     throw new RuntimeException("Error: Ya existe un videojuego con ese ID.");
                 }
@@ -103,9 +109,10 @@ public class ControllerVideoJuego {
         guiActualiza.add(actualizable);
     }
 
-    public void actualizar(){
+    public static void actualizar(){
         for (IActualizable act : guiActualiza){
             act.actualizar();
         }
     }
+
 }
