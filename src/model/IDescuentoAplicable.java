@@ -1,5 +1,5 @@
 package model;
 
-public interface IDecuentoAplicable {
+public interface IDescuentoAplicable {
     double aplicarDescuento();
 }

@@ -1,11 +1,12 @@
 package controller;
 
 import model.IActualizable;
+import model.IDescuentoAplicable;
 import model.VideoJuego;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControllerVideoJuego {
+public class ControllerVideoJuego  {
 
     private static List<VideoJuego> videoJuegos = new ArrayList<>();
     private static List<IActualizable> guiActualiza = new ArrayList<>();
@@ -115,4 +116,26 @@ public class ControllerVideoJuego {
         }
     }
 
+    public static String aplicarDescuentoPorId(int id) {
+        VideoJuego videoJuego = buscarVideoJuego(id);
+        if (videoJuego != null && videoJuego instanceof IDescuentoAplicable) {
+            double descuentoAplicado = ((IDescuentoAplicable) videoJuego).aplicarDescuento();
+            return "Descuento aplicado. Nuevo precio: " + videoJuego.getPrecio();
+        }
+        return "Videojuego no encontrado o no aplicable para descuento.";
+    }
+
+    public static String aplicarDescuentoPorNombre(String nombre) {
+        VideoJuego videoJuego = buscarVideoJuegoPorNombre(nombre);
+        if (videoJuego != null && videoJuego instanceof IDescuentoAplicable) {
+            double descuentoAplicado = ((IDescuentoAplicable) videoJuego).aplicarDescuento();
+            return "Descuento aplicado. Nuevo precio: " + videoJuego.getPrecio();
+        }
+        return "Videojuego no encontrado o no aplicable para descuento.";
+    }
 }
+
+
+
+
+

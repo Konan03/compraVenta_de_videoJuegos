@@ -23,6 +23,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     private JMenuItem item5;
     private JMenuItem item6;
     private JMenuItem item7;
+
+    private JMenuItem item8;
     private ControllerVideoJuego videojuego;
 
     public GUIPrincipal() {
@@ -60,6 +62,9 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         item5 = new JMenuItem("Buscar");
         item6 = new JMenuItem("Salir");
         item7 = new JMenuItem("Autores");
+        item8 = new JMenuItem("Aplicar Descuento");
+
+
 
         //agregamos los items al menu opciones
 
@@ -74,6 +79,9 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         opciones.add(item4);
         opciones.addSeparator();
         opciones.add(item5);
+        opciones.add(item8);
+        opciones.addSeparator();
+
 
         ayuda.add(item7);
 
@@ -132,6 +140,13 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
                 System.exit(0);
             }
         });
+
+        item8.addActionListener(e -> {
+            GUIAplicarDescuento guiAplicarDescuento = new GUIAplicarDescuento();
+            guiAplicarDescuento.setVisible(true);
+        });
+
+
     }
 
     public void setVideojuego(ControllerVideoJuego videojuego) {
