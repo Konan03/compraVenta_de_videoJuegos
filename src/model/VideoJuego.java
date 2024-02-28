@@ -101,7 +101,7 @@ public abstract class VideoJuego {
     }
 
     public abstract boolean validarVideoJuego();
-
+    public abstract double aplicarDescuento();
     @Override
     public String toString() {
         return "VideoJuego{" +
