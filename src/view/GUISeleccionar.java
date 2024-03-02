@@ -42,6 +42,4 @@ public class GUISeleccionar extends JFrame implements IGUIEstilos {
             dispose();
         } );
     }
-
-
 }

@@ -27,6 +27,9 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     private JMenuItem item8;
     private ControllerVideoJuego videojuego;
 
+    private GUIListar guiListar;
+
+
     public GUIPrincipal() {
 
         //iniciamos los valores del color y el logo
@@ -143,6 +146,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
 
         item8.addActionListener(e -> {
             GUIAplicarDescuento guiAplicarDescuento = new GUIAplicarDescuento();
+            guiAplicarDescuento.setGuiListar(guiListar);
             guiAplicarDescuento.setVisible(true);
         });
 

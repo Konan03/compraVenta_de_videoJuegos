@@ -97,7 +97,8 @@ public class GUIListar extends JFrame implements IGUIEstilos, IActualizable {
         juegos = (ArrayList<VideoJuego>) ControllerVideoJuego.listarVideoJuegos();
         getContentPane().removeAll();
         crearBotones();
-        revalidate();
-        repaint();
+        getContentPane().revalidate();
+        getContentPane().repaint();
     }
+
 }

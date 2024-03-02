@@ -1,7 +1,5 @@
 package model;
 
-import java.time.LocalDate;
-
 public class VideoJuegoDigital extends VideoJuego implements IDescuentoAplicable  {
 
     private String claveActivacion;
@@ -52,6 +50,4 @@ public class VideoJuegoDigital extends VideoJuego implements IDescuentoAplicable
     public boolean validarVideoJuego() {
         return getClaveActivacion() != null && getExpiracionClave() != null && !getClaveActivacion().isEmpty() && !getExpiracionClave().isEmpty();
     }
-
-
 }

@@ -1,7 +1,5 @@
 package model;
 
-import java.time.LocalDate;
-
 public abstract class VideoJuego {
 
     private int id;
@@ -102,12 +100,15 @@ public abstract class VideoJuego {
 
     public abstract boolean validarVideoJuego();
 
+    public abstract double aplicarDescuento();
+
     @Override
     public String toString() {
         return "VideoJuego{" +
                 "\nid=" + id +
                 ",\nnombre='" + nombre + '\'' +
-                ",\nprecio=" + precio +
+                ",\nprecioNormal=" + precio +
+                ",\nprecioDescuento=" + precio +
                 ",\nstock=" + stock +
                 ",\ndescripcion='" + descripcion + '\'' +
                 ",\nplataforma='" + plataforma + '\'' +
