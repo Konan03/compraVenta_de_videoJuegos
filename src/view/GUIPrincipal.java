@@ -59,8 +59,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
 
         //iniciamos los items del menu opciones
         item1 = new JMenuItem("Agregar");
-        //item2 = new JMenuItem("Eliminar");
-        //item3 = new JMenuItem("Actualizar");
+        item2 = new JMenuItem("Eliminar");
+        item3 = new JMenuItem("Actualizar");
         item4 = new JMenuItem("Listar");
         item5 = new JMenuItem("Buscar");
         item6 = new JMenuItem("Salir");
@@ -75,10 +75,10 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
 
         opciones.add(item1);
         opciones.addSeparator();
-       /* opciones.add(item2);
+        opciones.add(item2);
         opciones.addSeparator();
         opciones.add(item3);
-        opciones.addSeparator();*/
+        opciones.addSeparator();
         opciones.add(item4);
         opciones.addSeparator();
         opciones.add(item5);
@@ -117,7 +117,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
             guiSeleccionar.setVisible(true);
         });
 
-        /*item2.addActionListener(e -> {
+        item2.addActionListener(e -> {
             GUIEliminar guiEliminar = new GUIEliminar();
             guiEliminar.setVisible(true);
         });
@@ -125,7 +125,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         item3.addActionListener(e -> {
             GUIActualizar guiActualizar = new GUIActualizar();
             guiActualizar.setVisible(true);
-        });*/
+        });
 
         item4.addActionListener(e -> {
             GUIListar guiListar = new GUIListar();
