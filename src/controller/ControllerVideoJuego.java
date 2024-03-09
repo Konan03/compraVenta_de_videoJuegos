@@ -117,6 +117,15 @@ public class ControllerVideoJuego  {
     public static void eliminarVideoJuego(String nombre) {
         videoJuegos.removeIf(videoJuego -> nombre.equalsIgnoreCase(videoJuego.getNombre()));
     }
+
+    public static double calcularTotalPrecio() {
+        double totalPrecio = 0;
+        for (VideoJuego videoJuego : videoJuegos) {
+            totalPrecio += videoJuego.calcularPrecio();
+        }
+        return totalPrecio;
+    }
+
 }
 
 

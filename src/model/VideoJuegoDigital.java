@@ -30,6 +30,12 @@ public class VideoJuegoDigital extends VideoJuego   {
         this.expiracionClave = expiracionClave;
     }
 
+    public double calcularPrecio(){
+
+        double precio = getPrecio();
+        return precio;
+    }
+
     @Override
     public String toString() {
         return "VideoJuegoDigital{" +

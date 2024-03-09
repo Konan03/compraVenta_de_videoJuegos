@@ -6,13 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
-
 import model.VideoJuego;
 import model.VideoJuegoDigital;
 import model.VideoJuegoFisico;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
-import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 
@@ -20,22 +17,9 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
 
     private JLabel idLabel, nombreLabel, titulo;
     private JTextField idTexto, nombreTexto;
-    private JButton buscarBTN, actualizarBTN;
-
-    private JTextField precioTexto, stockTexto, plataformaTexto, generoTexto, calificacionEdadTexto, claveActivacionTexto;
-
-    private JTextArea descripcionTexto;
-    private JLabel precioLabel, stockLabel, descripcionLabel, plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, claveActivacionLabel, experacionClaveLabel;
-
-    private JTextField estadoTexto, empaqueTexto;
-    private JLabel estadoLabel, empaqueLabel;
+    private JButton buscarBTN;
 
     UtilDateModel model = new UtilDateModel();
-    UtilDateModel model2 = new UtilDateModel();
-    JDatePanelImpl datePanel = new JDatePanelImpl(model2);
-    JDatePanelImpl datePanel2 = new JDatePanelImpl(model);
-    JDatePickerImpl datePicker = new JDatePickerImpl(datePanel2);
-    JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel);
 
     public GUIActualizar() {
         JPanel panelFinal = new JPanel();
