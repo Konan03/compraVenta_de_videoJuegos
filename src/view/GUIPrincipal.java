@@ -3,8 +3,6 @@ package view;
 import controller.ControllerVideoJuego;
 
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -14,6 +12,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     private JMenu opciones;
     private JMenu archivo;
     private JMenu ayuda;
+    private JMenu usuario;
     private JMenuBar menuBar;
     private JLabel logo;
     private JMenuItem item1;
@@ -23,8 +22,12 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     private JMenuItem item5;
     private JMenuItem item6;
     private JMenuItem item7;
-
     private JMenuItem item8;
+    private JMenuItem item9;
+    private JMenuItem item10;
+    private JMenuItem item11;
+    private JMenuItem item12;
+    private JMenuItem item13;
     private ControllerVideoJuego videojuego;
 
     private GUIListar guiListar;
@@ -54,6 +57,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         opciones = new JMenu("Opciones");
         ayuda = new JMenu("Ayuda");
         archivo = new JMenu("Archivo");
+        usuario = new JMenu("Usuario");
         menuBar = new JMenuBar();
         logo = new JLabel(URLimagen);
 
@@ -66,6 +70,11 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         item6 = new JMenuItem("Salir");
         item7 = new JMenuItem("Autores");
         item8 = new JMenuItem("Aplicar Descuento");
+        item9 = new JMenuItem("Agregar");
+        item10 = new JMenuItem("Eliminar");
+        item11 = new JMenuItem("Actualizar");
+        item12 = new JMenuItem("Listar");
+        item13 = new JMenuItem("Buscar");
 
 
 
@@ -88,11 +97,22 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
 
         ayuda.add(item7);
 
+        usuario.add(item9);
+        usuario.addSeparator();
+        usuario.add(item10);
+        usuario.addSeparator();
+        usuario.add(item11);
+        usuario.addSeparator();
+        usuario.add(item12);
+        usuario.addSeparator();
+        usuario.add(item13);
+
 
         //agregamos el menu opciones y el menu autores al menuBar
         menuBar.add(archivo);
         menuBar.add(opciones);
         menuBar.add(ayuda);
+        menuBar.add(usuario);
 
         //asignamos el menuBar
         setJMenuBar(menuBar);
@@ -150,6 +170,30 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
             guiAplicarDescuento.setVisible(true);
         });
 
+        item9.addActionListener(e -> {
+            GUIAgregarUsuario guiAgregarUsuario = new GUIAgregarUsuario();
+            guiAgregarUsuario.setVisible(true);
+        });
+
+        item10.addActionListener(e -> {
+            GUIEliminarUsuario guiEliminarUsuario = new GUIEliminarUsuario();
+            guiEliminarUsuario.setVisible(true);
+        });
+
+        item11.addActionListener(e -> {
+
+        });
+
+
+        item12.addActionListener(e -> {
+            GUIListarUsuario guiListarUsuario = new GUIListarUsuario();
+            guiListarUsuario.setVisible(true);
+        });
+
+        item13.addActionListener(e -> {
+            GUIBuscarUsuario guiBuscarUsuario = new GUIBuscarUsuario();
+            guiBuscarUsuario.setVisible(true);
+        });
 
     }
 
