@@ -100,7 +100,6 @@ public abstract class VideoJuego {
 
     public abstract boolean validarVideoJuego();
 
-    public abstract double aplicarDescuento();
 
     @Override
     public String toString() {
@@ -117,5 +116,6 @@ public abstract class VideoJuego {
                 ",\nfechaLanzamiento=" + fechaLanzamiento +
                 "\n}";
     }
+
 
 }

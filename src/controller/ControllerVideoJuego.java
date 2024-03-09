@@ -90,16 +90,18 @@ public class ControllerVideoJuego  {
         return null;
     }
 
-    public static void actualizarVideojuego(int id, VideoJuego videoJuegoActualizado) {
+    public static void actualizarVideojuego(VideoJuego videojuegoActualizado) {
         for (int i = 0; i < videoJuegos.size(); i++) {
-            if (videoJuegos.get(i).getId() == id) {
-                videoJuegos.set(i, videoJuegoActualizado);
+            if (videoJuegos.get(i).getId() == videojuegoActualizado.getId()) {
+                videoJuegos.set(i, videojuegoActualizado);
+                actualizar();
                 System.out.println("Videojuego actualizado correctamente.");
                 return;
             }
         }
-        System.out.println("No se encontró ningún videojuego con ese ID.");
+        System.out.println("No se encontró un videojuego con el ID proporcionado para actualizar.");
     }
+
 
     public static void eliminarVideoJuego(int id) {
         for (VideoJuego videoJuego : videoJuegos) {

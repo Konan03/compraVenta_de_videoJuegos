@@ -4,14 +4,40 @@ import controller.ControllerVideoJuego;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+
+import model.VideoJuego;
+import model.VideoJuegoDigital;
+import model.VideoJuegoFisico;
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
+
 
 public class GUIActualizar extends JFrame implements IGUIEstilos {
 
     private JLabel idLabel, nombreLabel, titulo;
     private JTextField idTexto, nombreTexto;
-    private JButton buscarBTN;
+    private JButton buscarBTN, actualizarBTN;
 
-    public GUIActualizar(){
+    private JTextField precioTexto, stockTexto, plataformaTexto, generoTexto, calificacionEdadTexto, claveActivacionTexto;
+
+    private JTextArea descripcionTexto;
+    private JLabel precioLabel, stockLabel, descripcionLabel, plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, claveActivacionLabel, experacionClaveLabel;
+
+    private JTextField estadoTexto, empaqueTexto;
+    private JLabel estadoLabel, empaqueLabel;
+
+    UtilDateModel model = new UtilDateModel();
+    UtilDateModel model2 = new UtilDateModel();
+    JDatePanelImpl datePanel = new JDatePanelImpl(model2);
+    JDatePanelImpl datePanel2 = new JDatePanelImpl(model);
+    JDatePickerImpl datePicker = new JDatePickerImpl(datePanel2);
+    JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel);
+
+    public GUIActualizar() {
         JPanel panelFinal = new JPanel();
         JPanel panelInvisible = new JPanel();
         JPanel panelInvisible2 = new JPanel();
@@ -34,10 +60,10 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
 
         JPanel panelLabels = new JPanel();
-        panelLabels.setLayout(new GridLayout(2,1));
+        panelLabels.setLayout(new GridLayout(2, 1));
         panelLabels.setBackground(COLOR);
         JPanel panelTexto = new JPanel();
-        panelTexto.setLayout(new GridLayout(2,1));
+        panelTexto.setLayout(new GridLayout(2, 1));
         panelTexto.setBackground(COLOR);
 
         setTitle("buscar video juego");
@@ -76,9 +102,57 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
         add(panelInvisible4, BorderLayout.WEST);
         add(panelFinal, BorderLayout.CENTER);
         add(buscarBTN, BorderLayout.SOUTH);
+
+        buscarBTN.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String idStr = idTexto.getText().trim();
+                String nombre = nombreTexto.getText().trim();
+
+                if (!idStr.isEmpty()) {
+                    buscarJuegoPorId(idStr);
+                } else if (!nombre.isEmpty()) {
+                    buscarPorNombre(nombre);
+                } else {
+                    JOptionPane.showMessageDialog(GUIActualizar.this, "Por favor, ingrese un ID o un nombre para buscar.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
     }
 
+    public void buscarJuegoPorId(String idStr) {
+        try {
+            int id = Integer.parseInt(idStr);
+            VideoJuego videojuego = ControllerVideoJuego.buscarVideoJuego(id);
+            if (videojuego != null) {
+                abrirGUIEdicion(videojuego);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró un videojuego con el ID proporcionado.", "Búsqueda fallida", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID inválido, por favor ingrese un número.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
+    public void buscarPorNombre(String nombre) {
+        VideoJuego videojuego = ControllerVideoJuego.buscarVideoJuegoPorNombre(nombre);
+        if (videojuego != null) {
+            abrirGUIEdicion(videojuego);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró un videojuego con el nombre proporcionado.", "Búsqueda fallida", JOptionPane.ERROR_MESSAGE);
+        }
 
-
+    }
+    private void abrirGUIEdicion(VideoJuego videojuego) {
+        if (videojuego instanceof VideoJuegoDigital) {
+            GUIAgregarDigital guiActualizarDigital = new GUIAgregarDigital(true);
+            guiActualizarDigital.cargarDatosDigital((VideoJuegoDigital) videojuego);
+            guiActualizarDigital.setVisible(true);
+            dispose();
+        } else if (videojuego instanceof VideoJuegoFisico) {
+            GUIAgregarFisico guiActualizarFisico = new GUIAgregarFisico(true);
+            guiActualizarFisico.cargarDatosFisico((VideoJuegoFisico) videojuego);
+            guiActualizarFisico.setVisible(true);
+            dispose();
+        }
+    }
 }

@@ -23,15 +23,20 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
     private JTextArea descripcionTexto;
     private JLabel idLabel, nombreLabel, precioLabel, stockLabel, descripcionLabel,
             plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, estadoLabel, empaqueLabel;
-    private JButton agregarBTN;
+    private JButton guardarBTN;
 
     UtilDateModel model = new UtilDateModel();
     JDatePanelImpl datePanel = new JDatePanelImpl(model);
     JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
 
-    public GUIAgregarFisico()  {
+    public GUIAgregarFisico(boolean esActualizar)  {
 
-        JLabel titulo = new JLabel("Agregar juego fisico");
+        JLabel titulo;
+        if (esActualizar) {
+            titulo = new JLabel("Actualizar juego fisico");
+        } else {
+            titulo = new JLabel("Agregar juego fisico");
+        }
         Font fuenteActual = titulo.getFont();
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
@@ -97,7 +102,13 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         empaqueTexto = new JTextField();
         empaqueTexto.setBorder(GRAY_BORDER);
 
-        agregarBTN = new JButton("Agregar");
+        guardarBTN = new JButton();
+        if (esActualizar) {
+            guardarBTN.setText("Actualizar");
+        } else {
+            guardarBTN.setText("Agregar");
+        }
+
 
         panelLabels.add(idLabel);
         panelLabels.add(nombreLabel);
@@ -126,45 +137,70 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         add(titulo, BorderLayout.NORTH);
         add(panelLabels, BorderLayout.WEST);
         add(panelTexto, BorderLayout.CENTER);
-        add(agregarBTN, BorderLayout.SOUTH);
+        add(guardarBTN, BorderLayout.SOUTH);
 
-        agregarBTN.addActionListener(new ActionListener() {
+        guardarBTN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                agregarVideoJuego();
+                agregarOActualizarVideoJuego(esActualizar);
             }
         });
     }
 
-        private void agregarVideoJuego() {
-            try {
-                int idint = Integer.parseInt(idTexto.getText());
-                String nombre = nombreTexto.getText();
-                double precioDouble = Double.parseDouble(precioTexto.getText());
-                int stockint = Integer.parseInt(stockTexto.getText());
-                String descripcion = descripcionTexto.getText();
-                String plataforma = plataformaTexto.getText();
-                String genero = generoTexto.getText();
-                String calificacionEdad = calificacionEdadTexto.getText();
-                Date seleccionFecha = (Date) datePicker.getModel().getValue();
-                String fechaLanzamiento = seleccionFecha.toString();
-                String estado = estadoTexto.getText();
-                String empaque = empaqueTexto.getText();
+    private void agregarOActualizarVideoJuego(boolean esActualizar) {
+        try {
+            int idint = Integer.parseInt(idTexto.getText());
+            String nombre = nombreTexto.getText();
+            double precioDouble = Double.parseDouble(precioTexto.getText());
+            int stockint = Integer.parseInt(stockTexto.getText());
+            String descripcion = descripcionTexto.getText();
+            String plataforma = plataformaTexto.getText();
+            String genero = generoTexto.getText();
+            String calificacionEdad = calificacionEdadTexto.getText();
+            Date seleccionFecha = (Date) datePicker.getModel().getValue();
+            String fechaLanzamiento = seleccionFecha.toString();
+            String estado = estadoTexto.getText();
+            String empaque = empaqueTexto.getText();
 
+            if (esActualizar) {
+                VideoJuegoFisico videojuegoFisicoActual = new VideoJuegoFisico(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, estado, empaque);
+                videojuegoFisicoActual.setId(idint);
+                videojuegoFisicoActual.setNombre(nombre);
+                videojuegoFisicoActual.setPrecio(precioDouble);
+                videojuegoFisicoActual.setStock(stockint);
+                videojuegoFisicoActual.setDescripcion(descripcion);
+                videojuegoFisicoActual.setPlataforma(plataforma);
+                videojuegoFisicoActual.setGenero(genero);
+                videojuegoFisicoActual.setCalificacionEdad(calificacionEdad);
+                videojuegoFisicoActual.setEstado(estado);
+                videojuegoFisicoActual.setEmpaque(empaque);
+                videojuegoFisicoActual.setFechaLanzamiento(fechaLanzamiento);
+
+                ControllerVideoJuego.actualizarVideojuego(videojuegoFisicoActual);
+            } else {
 
                 VideoJuego nuevoVideoJuego = new VideoJuegoFisico(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, estado, empaque);
 
 
                 ControllerVideoJuego.agregarVideoJuego(nuevoVideoJuego);
-                JOptionPane.showMessageDialog(this, "Videojuego agregado exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Videojuego agregado exitosamente: ", "Exito", JOptionPane.INFORMATION_MESSAGE);
 
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error al agregar el videojuego: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al " + (esActualizar ? "actualizar" : "agregar") + " el videojuego: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }
-
-
-
+    public void cargarDatosFisico(VideoJuegoFisico videojuegoFisico) {
+        idTexto.setText(String.valueOf(videojuegoFisico.getId()));
+        nombreTexto.setText(videojuegoFisico.getNombre());
+        precioTexto.setText(String.valueOf(videojuegoFisico.getPrecio()));
+        stockTexto.setText(String.valueOf(videojuegoFisico.getStock()));
+        descripcionTexto.setText(videojuegoFisico.getDescripcion());
+        plataformaTexto.setText(videojuegoFisico.getPlataforma());
+        generoTexto.setText(videojuegoFisico.getGenero());
+        calificacionEdadTexto.setText(videojuegoFisico.getCalificacionEdad());
+        empaqueTexto.setText(videojuegoFisico.getEmpaque());
+        estadoTexto.setText(videojuegoFisico.getEstado());
+    }
+}

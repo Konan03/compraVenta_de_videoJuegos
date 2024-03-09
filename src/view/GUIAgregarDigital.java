@@ -10,9 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
+import model.VideoJuegoFisico;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+
+import static controller.ControllerVideoJuego.actualizar;
 
 
 public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
@@ -23,7 +26,7 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
     private JTextArea descripcionTexto;
     private JLabel idLabel, nombreLabel, precioLabel, stockLabel, descripcionLabel,
             plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, claveActivacionLabel, experacionClaveLabel;
-    private JButton agregarBTN;
+    private JButton guardarBTN;
 
     UtilDateModel model = new UtilDateModel();
     UtilDateModel model2 = new UtilDateModel();
@@ -32,20 +35,25 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
     JDatePickerImpl datePicker = new JDatePickerImpl(datePanel2);
     JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel);
 
-    public GUIAgregarDigital()  {
+    public GUIAgregarDigital(boolean esActualizar) {
 
-        JLabel titulo = new JLabel("Agregar juego digital");
+        JLabel titulo;
+        if (esActualizar) {
+            titulo = new JLabel("Actualizar juego fisico");
+        } else {
+            titulo = new JLabel("Agregar juego fisico");
+        }
         Font fuenteActual = titulo.getFont();
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
         JPanel panelLabels = new JPanel();
-        panelLabels.setLayout(new GridLayout(11,1));
+        panelLabels.setLayout(new GridLayout(11, 1));
         panelLabels.setBackground(COLOR);
         JPanel panelTexto = new JPanel();
-        panelTexto.setLayout(new GridLayout(11,1));
+        panelTexto.setLayout(new GridLayout(11, 1));
         panelTexto.setBackground(COLOR);
 
-        setTitle("Agregar video juego");
+        setTitle("Agregar videojuego");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -100,7 +108,12 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         //expiracionClaveTexto = new JTextField();
         datePicker.setBorder(GRAY_BORDER);
 
-        agregarBTN = new JButton("Agregar");
+        guardarBTN = new JButton();
+        if (esActualizar) {
+            guardarBTN.setText("Actualizar");
+        } else {
+            guardarBTN.setText("Agregar");
+        }
 
         panelLabels.add(idLabel);
         panelLabels.add(nombreLabel);
@@ -129,17 +142,19 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         add(titulo, BorderLayout.NORTH);
         add(panelLabels, BorderLayout.WEST);
         add(panelTexto, BorderLayout.CENTER);
-        add(agregarBTN, BorderLayout.SOUTH);
+        add(guardarBTN, BorderLayout.SOUTH);
 
-        agregarBTN.addActionListener(new ActionListener() {
+        guardarBTN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                agregarVideoJuego();
+                agregarOActualizarVideoJuego(esActualizar);
             }
         });
+
+
     }
 
-    private void agregarVideoJuego() {
+    private void agregarOActualizarVideoJuego(boolean esActualizar) {
         try {
             int idint = Integer.parseInt(idTexto.getText());
             String nombre = nombreTexto.getText();
@@ -155,19 +170,47 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
             Date seleccionFecha2 = (Date) datePicker2.getModel().getValue();
             String expiracionClave = seleccionFecha2.toString();
 
+            if (esActualizar) {
+                VideoJuegoDigital videojuegoDigitalActual = new VideoJuegoDigital(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, claveActivacion, expiracionClave);
+                videojuegoDigitalActual.setId(idint);
+                videojuegoDigitalActual.setNombre(nombre);
+                videojuegoDigitalActual.setPrecio(precioDouble);
+                videojuegoDigitalActual.setStock(stockint);
+                videojuegoDigitalActual.setDescripcion(descripcion);
+                videojuegoDigitalActual.setPlataforma(plataforma);
+                videojuegoDigitalActual.setGenero(genero);
+                videojuegoDigitalActual.setCalificacionEdad(calificacionEdad);
+                videojuegoDigitalActual.setClaveActivacion(claveActivacion);
+                videojuegoDigitalActual.setFechaLanzamiento(fechaLanzamiento);
+                videojuegoDigitalActual.setExpiracionClave(expiracionClave);
 
-            VideoJuego nuevoVideoJuego = new VideoJuegoDigital(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, claveActivacion,expiracionClave );
+                ControllerVideoJuego.actualizarVideojuego(videojuegoDigitalActual);
+                JOptionPane.showMessageDialog(GUIAgregarDigital.this, "Videojuego digital actualizado con éxito.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+
+                VideoJuego nuevoVideoJuego = new VideoJuegoDigital(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, claveActivacion, expiracionClave);
 
 
-            ControllerVideoJuego.agregarVideoJuego(nuevoVideoJuego);
-            JOptionPane.showMessageDialog(this, "Videojuego agregado exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
+                ControllerVideoJuego.agregarVideoJuego(nuevoVideoJuego);
+                JOptionPane.showMessageDialog(this, "Videojuego agregado exitosamente: ", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            }
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al agregar el videojuego: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al " + (esActualizar ? "actualizar" : "agregar") + " el videojuego: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-
+    public void cargarDatosDigital(VideoJuegoDigital videojuegoDigital) {
+        idTexto.setText(String.valueOf(videojuegoDigital.getId()));
+        nombreTexto.setText(videojuegoDigital.getNombre());
+        precioTexto.setText(String.valueOf(videojuegoDigital.getPrecio()));
+        stockTexto.setText(String.valueOf(videojuegoDigital.getStock()));
+        descripcionTexto.setText(videojuegoDigital.getDescripcion());
+        plataformaTexto.setText(videojuegoDigital.getPlataforma());
+        generoTexto.setText(videojuegoDigital.getGenero());
+        calificacionEdadTexto.setText(videojuegoDigital.getCalificacionEdad());
+    }
 }
 
 
