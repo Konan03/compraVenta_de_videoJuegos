@@ -31,13 +31,13 @@ public class GUISeleccionar extends JFrame implements IGUIEstilos {
         add(buttonPanel, BorderLayout.SOUTH);
 
         op1.addActionListener(e1 -> {
-            GUIAgregarFisico guiAgregarFisico = new GUIAgregarFisico();
+            GUIAgregarFisico guiAgregarFisico = new GUIAgregarFisico(false);
             guiAgregarFisico.setVisible(true);
             dispose();
         } );
 
         op2.addActionListener(e2 -> {
-            GUIAgregarDigital guiAgregarDigital = new GUIAgregarDigital();
+            GUIAgregarDigital guiAgregarDigital = new GUIAgregarDigital(false);
             guiAgregarDigital.setVisible(true);
             dispose();
         } );

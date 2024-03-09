@@ -1,12 +1,13 @@
 package view;
 
 import controller.ControllerVideoJuego;
+import model.IDescuentoAplicable;
 import model.VideoJuego;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GUIAplicarDescuento extends JFrame implements IGUIEstilos {
+public class GUIAplicarDescuento extends JFrame implements IGUIEstilos{
 
     private JLabel idLabel, nombreLabel, titulo;
     private JTextField idTexto, nombreTexto;
@@ -80,62 +81,14 @@ public class GUIAplicarDescuento extends JFrame implements IGUIEstilos {
         add(panelFinal, BorderLayout.CENTER);
         add(aplicarDescuentoBTN, BorderLayout.SOUTH);
 
-        aplicarDescuentoBTN.addActionListener(e -> aplicarDescuento());
+
     }
 
     public void setGuiListar(GUIListar guiListar) {
         this.guiListar = guiListar;
     }
 
-    private void aplicarDescuento() {
-        String mensaje;
-        VideoJuego videoJuego = null;
 
-        String idStr = idTexto.getText().trim();
-        String nombre = nombreTexto.getText().trim();
-
-        if (!idStr.isEmpty()) {
-            try {
-                int id = Integer.parseInt(idStr);
-                videoJuego = ControllerVideoJuego.buscarVideoJuego(id);
-                if (videoJuego == null) {
-                    mensaje = "No se encontró ningún videojuego con el ID proporcionado.";
-                    JOptionPane.showMessageDialog(this, mensaje, "Resultado del Descuento", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                }
-            } catch (NumberFormatException ex) {
-                mensaje = "Por favor, ingrese un ID válido.";
-                JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } else if (!nombre.isEmpty()) {
-            videoJuego = ControllerVideoJuego.buscarVideoJuegoPorNombre(nombre);
-            if (videoJuego == null) {
-                mensaje = "No se encontró ningún videojuego con el nombre proporcionado.";
-                JOptionPane.showMessageDialog(this, mensaje, "Resultado del Descuento", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-        } else {
-            mensaje = "Por favor, introduzca un ID o un nombre para buscar el videojuego.";
-            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (videoJuego != null) {
-            double descuentoAplicado = videoJuego.aplicarDescuento();
-            if (descuentoAplicado > 0) {
-                mensaje = String.format("Descuento aplicado. Nuevo precio: %.2f", videoJuego.getPrecio());
-                ControllerVideoJuego.actualizarVideojuego(videoJuego.getId(), videoJuego);
-            } else {
-                mensaje = "Este videojuego no es elegible para descuentos.";
-            }
-            if (guiListar != null) {
-            guiListar.actualizar();
-             }
-
-            JOptionPane.showMessageDialog(this, mensaje, "Resultado del Descuento", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
 }
 
 
