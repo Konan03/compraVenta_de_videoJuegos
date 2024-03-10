@@ -116,6 +116,4 @@ public abstract class VideoJuego {
                 ",\nfechaLanzamiento=" + fechaLanzamiento +
                 "\n}";
     }
-
-
 }

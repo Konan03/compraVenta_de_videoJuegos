@@ -83,12 +83,9 @@ public class GUIAplicarDescuento extends JFrame implements IGUIEstilos{
 
 
     }
-
     public void setGuiListar(GUIListar guiListar) {
         this.guiListar = guiListar;
     }
-
-
 }
 
 

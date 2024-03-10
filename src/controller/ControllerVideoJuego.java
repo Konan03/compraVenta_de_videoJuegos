@@ -60,8 +60,6 @@ public class ControllerVideoJuego  {
         }
     }
 
-    // Otros
-
     public static VideoJuego buscarVideoJuego(int id) {
         for (VideoJuego videojuego : videoJuegos) {
             if (videojuego.getId() == id) {
@@ -116,6 +114,10 @@ public class ControllerVideoJuego  {
 
     public static void eliminarVideoJuego(String nombre) {
         videoJuegos.removeIf(videoJuego -> nombre.equalsIgnoreCase(videoJuego.getNombre()));
+    }
+
+    public void aplicarDescuento(){
+
     }
 }
 

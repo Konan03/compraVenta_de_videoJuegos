@@ -1,6 +1,6 @@
 package model;
 
-public class VideoJuegoDigital extends VideoJuego   {
+public class VideoJuegoDigital extends VideoJuego  implements IDescuentoAplicable {
 
     private String claveActivacion;
     private String expiracionClave;
@@ -39,6 +39,12 @@ public class VideoJuegoDigital extends VideoJuego   {
                 "\n}";
     }
 
+    @Override
+    public double aplicarDescuento() {
+        double descuento = getPrecio() * 0.10;
+        setPrecio(getPrecio() - descuento);
+        return descuento;
+    }
 
     @Override
     public boolean validarVideoJuego() {
