@@ -69,12 +69,14 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         item5 = new JMenuItem("Buscar");
         item6 = new JMenuItem("Salir");
         item7 = new JMenuItem("Autores");
-        item8 = new JMenuItem("Aplicar Descuento");
+        item8 = new JMenuItem("Calculos");
         item9 = new JMenuItem("Agregar");
         item10 = new JMenuItem("Eliminar");
         item11 = new JMenuItem("Actualizar");
         item12 = new JMenuItem("Listar");
         item13 = new JMenuItem("Buscar");
+
+
 
 
 
@@ -165,9 +167,9 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         });
 
         item8.addActionListener(e -> {
-            GUIAplicarDescuento guiAplicarDescuento = new GUIAplicarDescuento();
-            guiAplicarDescuento.setGuiListar(guiListar);
-            guiAplicarDescuento.setVisible(true);
+            GUICalculos guiCalculos = new GUICalculos();
+            guiCalculos.setGuiListar(guiListar);
+            guiCalculos.setVisible(true);
         });
 
         item9.addActionListener(e -> {

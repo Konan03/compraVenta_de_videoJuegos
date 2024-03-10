@@ -210,6 +210,7 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         plataformaTexto.setText(videojuegoDigital.getPlataforma());
         generoTexto.setText(videojuegoDigital.getGenero());
         calificacionEdadTexto.setText(videojuegoDigital.getCalificacionEdad());
+        claveActivacionTexto.setText(videojuegoDigital.getClaveActivacion());
     }
 }
 
