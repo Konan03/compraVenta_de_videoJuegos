@@ -1,19 +1,19 @@
 package view;
 
+import controller.ControllerUsuario;
 import controller.ControllerVideoJuego;
+import model.Usuario;
+import model.VideoJuego;
+import model.VideoJuegoDigital;
+import model.VideoJuegoFisico;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import model.VideoJuego;
-import model.VideoJuegoDigital;
-import model.VideoJuegoFisico;
-import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
-import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
-
-public class GUIActualizar extends JFrame implements IGUIEstilos {
+public class GUIActualizarUsuario  extends JFrame implements IGUIEstilos{
 
     private JLabel idLabel, nombreLabel, titulo;
     private JTextField idTexto, nombreTexto;
@@ -21,7 +21,7 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
 
     UtilDateModel model = new UtilDateModel();
 
-    public GUIActualizar() {
+    public GUIActualizarUsuario(){
         JPanel panelFinal = new JPanel();
         JPanel panelInvisible = new JPanel();
         JPanel panelInvisible2 = new JPanel();
@@ -38,7 +38,7 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
         panelInvisible4.setPreferredSize(new Dimension(100, 150));
         panelInvisible4.setBackground(COLOR);
 
-        titulo = new JLabel("Ingrese el Id o el Nombre del juego a actualizar");
+        titulo = new JLabel("Ingrese el Id o el Nombre del usuario a actualizar");
         Font fuenteActual = titulo.getFont();
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
@@ -50,7 +50,7 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
         panelTexto.setLayout(new GridLayout(2, 1));
         panelTexto.setBackground(COLOR);
 
-        setTitle("buscar video juego");
+        setTitle("buscar usuario");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -68,7 +68,7 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
         nombreTexto = new JTextField();
         nombreTexto.setBorder(GRAY_BORDER);
 
-        buscarBTN = new JButton("Buscar");
+        buscarBTN = new JButton("buscar");
 
         panelLabels.add(idLabel);
         panelLabels.add(nombreLabel);
@@ -88,29 +88,30 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
         add(buscarBTN, BorderLayout.SOUTH);
 
         buscarBTN.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 String idStr = idTexto.getText().trim();
                 String nombre = nombreTexto.getText().trim();
 
                 if (!idStr.isEmpty()) {
-                    buscarJuegoPorId(idStr);
+                    buscarPorId(idStr);
                 } else if (!nombre.isEmpty()) {
                     buscarPorNombre(nombre);
                 } else {
-                    JOptionPane.showMessageDialog(GUIActualizar.this, "Por favor, ingrese un ID o un nombre para buscar.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(GUIActualizarUsuario.this, "Por favor, ingrese un ID o un nombre para buscar.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
     }
 
-    public void buscarJuegoPorId(String idStr) {
+    public void buscarPorId(String idStr) {
         try {
             int id = Integer.parseInt(idStr);
-            VideoJuego videojuego = ControllerVideoJuego.buscarVideoJuego(id);
-            if (videojuego != null) {
-                abrirGUIEdicion(videojuego);
+            Usuario usuario = ControllerUsuario.buscarUsuario(id);
+            if (usuario != null) {
+                abrirGUIEdicion(usuario);
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró un videojuego con el ID proporcionado.", "Búsqueda fallida", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se encontró un usuario con el ID proporcionado.", "Búsqueda fallida", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "ID inválido, por favor ingrese un número.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -118,24 +119,20 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
     }
 
     public void buscarPorNombre(String nombre) {
-        VideoJuego videojuego = ControllerVideoJuego.buscarVideoJuegoPorNombre(nombre);
-        if (videojuego != null) {
-            abrirGUIEdicion(videojuego);
+        Usuario usuario = ControllerUsuario.buscarUsuario(nombre);
+        if (usuario != null) {
+            abrirGUIEdicion(usuario);
         } else {
-            JOptionPane.showMessageDialog(this, "No se encontró un videojuego con el nombre proporcionado.", "Búsqueda fallida", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se encontró un usuario con el nombre proporcionado.", "Búsqueda fallida", JOptionPane.ERROR_MESSAGE);
         }
 
     }
-    private void abrirGUIEdicion(VideoJuego videojuego) {
-        if (videojuego instanceof VideoJuegoDigital) {
-            GUIAgregarDigital guiActualizarDigital = new GUIAgregarDigital(true);
-            guiActualizarDigital.cargarDatosDigital((VideoJuegoDigital) videojuego);
-            guiActualizarDigital.setVisible(true);
-            dispose();
-        } else if (videojuego instanceof VideoJuegoFisico) {
-            GUIAgregarFisico guiActualizarFisico = new GUIAgregarFisico(true);
-            guiActualizarFisico.cargarDatosFisico((VideoJuegoFisico) videojuego);
-            guiActualizarFisico.setVisible(true);
+
+    private void abrirGUIEdicion(Usuario usuario) {
+        if (usuario != null) {
+            GUIAgregarUsuario guiActualizarUsuario = new GUIAgregarUsuario(true);
+            guiActualizarUsuario.cargarDatos( usuario);
+            guiActualizarUsuario.setVisible(true);
             dispose();
         }
     }

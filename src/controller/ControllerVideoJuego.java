@@ -60,6 +60,8 @@ public class ControllerVideoJuego  {
         }
     }
 
+    // Otros
+
     public static VideoJuego buscarVideoJuego(int id) {
         for (VideoJuego videojuego : videoJuegos) {
             if (videojuego.getId() == id) {
@@ -116,9 +118,14 @@ public class ControllerVideoJuego  {
         videoJuegos.removeIf(videoJuego -> nombre.equalsIgnoreCase(videoJuego.getNombre()));
     }
 
-    public void aplicarDescuento(){
-
+    public static double calcularTotalPrecio() {
+        double totalPrecio = 0;
+        for (VideoJuego videoJuego : videoJuegos) {
+            totalPrecio += videoJuego.calcularPrecio();
+        }
+        return totalPrecio;
     }
+
 }
 
 

@@ -1,27 +1,20 @@
 package view;
 
+import controller.ControllerUsuario;
 import controller.ControllerVideoJuego;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import model.VideoJuego;
-import model.VideoJuegoDigital;
-import model.VideoJuegoFisico;
-import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
-import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
+public class GUIEliminarUsuario extends JFrame implements IGUIEstilos{
 
-public class GUIActualizar extends JFrame implements IGUIEstilos {
-
-    private JLabel idLabel, nombreLabel, titulo;
+    private JLabel idLabel, nombreLabel;
     private JTextField idTexto, nombreTexto;
-    private JButton buscarBTN;
+    private JButton eliminarBTN;
 
-    UtilDateModel model = new UtilDateModel();
-
-    public GUIActualizar() {
+    public GUIEliminarUsuario(){
         JPanel panelFinal = new JPanel();
         JPanel panelInvisible = new JPanel();
         JPanel panelInvisible2 = new JPanel();
@@ -38,19 +31,19 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
         panelInvisible4.setPreferredSize(new Dimension(100, 150));
         panelInvisible4.setBackground(COLOR);
 
-        titulo = new JLabel("Ingrese el Id o el Nombre del juego a actualizar");
+        JLabel titulo = new JLabel("Ingrese el Id o el Nombre del usuario a eliminar");
         Font fuenteActual = titulo.getFont();
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
 
         JPanel panelLabels = new JPanel();
-        panelLabels.setLayout(new GridLayout(2, 1));
+        panelLabels.setLayout(new GridLayout(2,1));
         panelLabels.setBackground(COLOR);
         JPanel panelTexto = new JPanel();
-        panelTexto.setLayout(new GridLayout(2, 1));
+        panelTexto.setLayout(new GridLayout(2,1));
         panelTexto.setBackground(COLOR);
 
-        setTitle("buscar video juego");
+        setTitle("Eliminar usuario");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -68,7 +61,7 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
         nombreTexto = new JTextField();
         nombreTexto.setBorder(GRAY_BORDER);
 
-        buscarBTN = new JButton("Buscar");
+        eliminarBTN = new JButton("Eliminar");
 
         panelLabels.add(idLabel);
         panelLabels.add(nombreLabel);
@@ -85,58 +78,43 @@ public class GUIActualizar extends JFrame implements IGUIEstilos {
         add(titulo, BorderLayout.NORTH);
         add(panelInvisible4, BorderLayout.WEST);
         add(panelFinal, BorderLayout.CENTER);
-        add(buscarBTN, BorderLayout.SOUTH);
+        add(eliminarBTN, BorderLayout.SOUTH);
 
-        buscarBTN.addActionListener(new ActionListener() {
+        eliminarBTN.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 String idStr = idTexto.getText().trim();
                 String nombre = nombreTexto.getText().trim();
 
                 if (!idStr.isEmpty()) {
-                    buscarJuegoPorId(idStr);
+                    eliminarPorId(idStr);
                 } else if (!nombre.isEmpty()) {
-                    buscarPorNombre(nombre);
+                    eliminarPorNombre(nombre);
                 } else {
-                    JOptionPane.showMessageDialog(GUIActualizar.this, "Por favor, ingrese un ID o un nombre para buscar.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(GUIEliminarUsuario.this, "Por favor, introduzca un ID o un nombre para eliminar.", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
     }
 
-    public void buscarJuegoPorId(String idStr) {
+    public void eliminarPorId(String idStr) {
         try {
             int id = Integer.parseInt(idStr);
-            VideoJuego videojuego = ControllerVideoJuego.buscarVideoJuego(id);
-            if (videojuego != null) {
-                abrirGUIEdicion(videojuego);
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontró un videojuego con el ID proporcionado.", "Búsqueda fallida", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID inválido, por favor ingrese un número.", "Error", JOptionPane.ERROR_MESSAGE);
+            ControllerUsuario.eliminarVideoJuego(id);
+            JOptionPane.showMessageDialog(this, "Usuario eliminado por id exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "ID inválido, debe ser un número entero.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void buscarPorNombre(String nombre) {
-        VideoJuego videojuego = ControllerVideoJuego.buscarVideoJuegoPorNombre(nombre);
-        if (videojuego != null) {
-            abrirGUIEdicion(videojuego);
-        } else {
-            JOptionPane.showMessageDialog(this, "No se encontró un videojuego con el nombre proporcionado.", "Búsqueda fallida", JOptionPane.ERROR_MESSAGE);
+    public void eliminarPorNombre(String nombre) {
+        try {
+            ControllerUsuario.eliminarVideoJuego(nombre);
+            JOptionPane.showMessageDialog(this, "usuario eliminado por nombre exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Nombre inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-    }
-    private void abrirGUIEdicion(VideoJuego videojuego) {
-        if (videojuego instanceof VideoJuegoDigital) {
-            GUIAgregarDigital guiActualizarDigital = new GUIAgregarDigital(true);
-            guiActualizarDigital.cargarDatosDigital((VideoJuegoDigital) videojuego);
-            guiActualizarDigital.setVisible(true);
-            dispose();
-        } else if (videojuego instanceof VideoJuegoFisico) {
-            GUIAgregarFisico guiActualizarFisico = new GUIAgregarFisico(true);
-            guiActualizarFisico.cargarDatosFisico((VideoJuegoFisico) videojuego);
-            guiActualizarFisico.setVisible(true);
-            dispose();
-        }
     }
 }

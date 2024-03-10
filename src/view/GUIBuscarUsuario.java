@@ -1,21 +1,20 @@
 package view;
 
-import controller.ControllerVideoJuego;
-import model.IDescuentoAplicable;
-import model.VideoJuego;
+import controller.ControllerUsuario;
+import model.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GUIAplicarDescuento extends JFrame implements IGUIEstilos{
+public class GUIBuscarUsuario extends JFrame implements IGUIEstilos {
 
     private JLabel idLabel, nombreLabel, titulo;
     private JTextField idTexto, nombreTexto;
-    private JButton aplicarDescuentoBTN;
+    private JButton buscarBTN;
 
-    private GUIListar guiListar;
-
-    public GUIAplicarDescuento(){
+    public GUIBuscarUsuario() {
         JPanel panelFinal = new JPanel();
         JPanel panelInvisible = new JPanel();
         JPanel panelInvisible2 = new JPanel();
@@ -32,19 +31,19 @@ public class GUIAplicarDescuento extends JFrame implements IGUIEstilos{
         panelInvisible4.setPreferredSize(new Dimension(100, 150));
         panelInvisible4.setBackground(COLOR);
 
-        titulo = new JLabel("Ingrese el Id o el Nombre del juego ");
+        titulo = new JLabel("Ingrese el Id o el Nombre del usuario a buscar");
         Font fuenteActual = titulo.getFont();
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
 
         JPanel panelLabels = new JPanel();
-        panelLabels.setLayout(new GridLayout(2,1));
+        panelLabels.setLayout(new GridLayout(2, 1));
         panelLabels.setBackground(COLOR);
         JPanel panelTexto = new JPanel();
-        panelTexto.setLayout(new GridLayout(2,1));
+        panelTexto.setLayout(new GridLayout(2, 1));
         panelTexto.setBackground(COLOR);
 
-        setTitle("Aplicar descuento a videojuego");
+        setTitle("buscar usuario");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -62,7 +61,7 @@ public class GUIAplicarDescuento extends JFrame implements IGUIEstilos{
         nombreTexto = new JTextField();
         nombreTexto.setBorder(GRAY_BORDER);
 
-        aplicarDescuentoBTN = new JButton("Aplicar Descuento");
+        buscarBTN = new JButton("Buscar");
 
         panelLabels.add(idLabel);
         panelLabels.add(nombreLabel);
@@ -79,15 +78,45 @@ public class GUIAplicarDescuento extends JFrame implements IGUIEstilos{
         add(titulo, BorderLayout.NORTH);
         add(panelInvisible4, BorderLayout.WEST);
         add(panelFinal, BorderLayout.CENTER);
-        add(aplicarDescuentoBTN, BorderLayout.SOUTH);
+        add(buscarBTN, BorderLayout.SOUTH);
 
+        buscarBTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String idStr = idTexto.getText();
+                String nombre = nombreTexto.getText();
+
+                if (!idStr.isEmpty()) {
+                    buscarJuegoPorId(idStr);
+                } else if (!nombre.isEmpty()) {
+                    buscarPorNombre(nombre);
+                } else {
+                    JOptionPane.showMessageDialog(GUIBuscarUsuario.this, "Por favor, introduzca un ID o un nombre para eliminar.", "Información Incompleta", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+    }
+
+    public void buscarJuegoPorId(String idStr){
+        try {
+            int id = Integer.parseInt(String.valueOf(idStr));
+            Usuario usuario = ControllerUsuario.buscarUsuario(id);
+            JOptionPane.showMessageDialog(this, "Usuario encontrado " + usuario.toString(), "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "ID inválido, no existe el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }
+
+    public void buscarPorNombre(String nombre) {
+        try {
+            Usuario usuario = ControllerUsuario.buscarUsuario(nombre);
+            JOptionPane.showMessageDialog(this, "Usuario encontrado " + usuario.toString(), "Exito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "ID inválido, no existe el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }
-    public void setGuiListar(GUIListar guiListar) {
-        this.guiListar = guiListar;
-    }
+
 }
-
-
-
-
