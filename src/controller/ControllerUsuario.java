@@ -17,6 +17,7 @@ public class ControllerUsuario {
             if (usuario.validarUsuario()) {
                 if (!existeId(usuario.getId())) {
                     usuarios.add(usuario);
+                    actualizar();
                     System.out.println("Videojuego agregado correctamente.");
                 } else {
                     throw new RuntimeException("Error: Ya existe un usuario con ese ID.");
@@ -45,15 +46,16 @@ public class ControllerUsuario {
         for (Usuario usuario : usuarios) {
             if (usuario.getId() == id) {
                 usuarios.remove(usuario);
-                System.out.println("Videojuego eliminado correctamente.");
+                System.out.println("Usuario eliminado correctamente.");
                 return;
             }
         }
-        System.out.println("No se encontró ningún videojuego con ese ID.");
+        System.out.println("No se encontró ningún usuario con ese ID.");
     }
 
     public static void eliminarVideoJuego(String nombre) {
         usuarios.removeIf(usuario -> nombre.equalsIgnoreCase(usuario.getNombre()));
+        actualizar();
     }
 
     public static Usuario buscarUsuario(int id) {
@@ -98,5 +100,4 @@ public class ControllerUsuario {
         }
         System.out.println("No se encontro un usuario con es ID");
     }
-
 }

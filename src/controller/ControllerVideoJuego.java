@@ -108,6 +108,7 @@ public class ControllerVideoJuego  {
             if (videoJuego.getId() == id) {
                 videoJuegos.remove(videoJuego);
                 System.out.println("Videojuego eliminado correctamente.");
+                actualizar();
                 return;
             }
         }
@@ -116,6 +117,7 @@ public class ControllerVideoJuego  {
 
     public static void eliminarVideoJuego(String nombre) {
         videoJuegos.removeIf(videoJuego -> nombre.equalsIgnoreCase(videoJuego.getNombre()));
+        actualizar();
     }
 
     public static double calcularTotalPrecio() {
@@ -125,7 +127,6 @@ public class ControllerVideoJuego  {
         }
         return totalPrecio;
     }
-
 }
 
 
