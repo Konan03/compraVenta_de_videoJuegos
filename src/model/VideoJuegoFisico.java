@@ -46,6 +46,12 @@ public class VideoJuegoFisico extends VideoJuego implements IDescuentoAplicable 
         return descuento;
     }
 
+    public double calcularPrecio(){
+
+        double precio = getPrecio();
+        return precio;
+    }
+
     @Override
     public boolean validarVideoJuego() {
         return getEstado() != null && getEmpaque() != null && !getEstado().isEmpty() && !getEmpaque().isEmpty();

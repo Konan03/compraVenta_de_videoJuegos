@@ -100,6 +100,8 @@ public abstract class VideoJuego {
 
     public abstract boolean validarVideoJuego();
 
+    public abstract double calcularPrecio();
+
 
     @Override
     public String toString() {

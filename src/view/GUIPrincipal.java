@@ -3,8 +3,6 @@ package view;
 import controller.ControllerVideoJuego;
 
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -65,7 +63,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         item5 = new JMenuItem("Buscar");
         item6 = new JMenuItem("Salir");
         item7 = new JMenuItem("Autores");
-        item8 = new JMenuItem("Aplicar Descuento");
+        item8 = new JMenuItem("Calculos");
 
 
 
@@ -145,9 +143,9 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         });
 
         item8.addActionListener(e -> {
-            GUIAplicarDescuento guiAplicarDescuento = new GUIAplicarDescuento();
-            guiAplicarDescuento.setGuiListar(guiListar);
-            guiAplicarDescuento.setVisible(true);
+            GUICalculos guiCalculos = new GUICalculos();
+            guiCalculos.setGuiListar(guiListar);
+            guiCalculos.setVisible(true);
         });
 
 
