@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerVideoJuego;
+import model.VideoJuego;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -100,9 +101,13 @@ public class GUIEliminar extends JFrame implements IGUIEstilos {
     public void eliminarPorId(String idStr) {
         try {
             int id = Integer.parseInt(idStr);
-            ControllerVideoJuego.eliminarVideoJuego(id);
-            JOptionPane.showMessageDialog(this, "Videojuego eliminado por id exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
-
+            VideoJuego videoJuegoEliminado = ControllerVideoJuego.buscarVideoJuego(id);
+            if (videoJuegoEliminado != null) {
+                ControllerVideoJuego.eliminarVideoJuego(id);
+                JOptionPane.showMessageDialog(this, "Videojuego eliminado por ID exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ningún videojuego con ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "ID inválido, debe ser un número entero.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -110,12 +115,15 @@ public class GUIEliminar extends JFrame implements IGUIEstilos {
 
     public void eliminarPorNombre(String nombre) {
         try {
-            ControllerVideoJuego.eliminarVideoJuego(nombre);
-            JOptionPane.showMessageDialog(this, "Videojuego eliminado por nombre exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
+            VideoJuego videoJuegoEliminado = ControllerVideoJuego.buscarVideoJuegoPorNombre(nombre);
+            if (videoJuegoEliminado != null) {
+                ControllerVideoJuego.eliminarVideoJuego(nombre);
+                JOptionPane.showMessageDialog(this, "Videojuego eliminado por nombre exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ningún videojuego con ese nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Nombre inválido", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nombre inválido.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }
-
 }
