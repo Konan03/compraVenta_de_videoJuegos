@@ -42,10 +42,11 @@ public class ControllerUsuario {
         return usuarios;
     }
 
-    public static void eliminarVideoJuego(int id) {
+    public static void eliminarUsuario(int id) {
         for (Usuario usuario : usuarios) {
             if (usuario.getId() == id) {
                 usuarios.remove(usuario);
+                actualizar();
                 System.out.println("Usuario eliminado correctamente.");
                 return;
             }
@@ -53,7 +54,7 @@ public class ControllerUsuario {
         System.out.println("No se encontró ningún usuario con ese ID.");
     }
 
-    public static void eliminarVideoJuego(String nombre) {
+    public static void eliminarUsuario(String nombre) {
         usuarios.removeIf(usuario -> nombre.equalsIgnoreCase(usuario.getNombre()));
         actualizar();
     }

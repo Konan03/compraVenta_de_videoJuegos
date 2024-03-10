@@ -2,6 +2,7 @@ package view;
 
 import controller.ControllerUsuario;
 import controller.ControllerVideoJuego;
+import model.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -100,21 +101,26 @@ public class GUIEliminarUsuario extends JFrame implements IGUIEstilos{
     public void eliminarPorId(String idStr) {
         try {
             int id = Integer.parseInt(idStr);
-            ControllerUsuario.eliminarVideoJuego(id);
-            JOptionPane.showMessageDialog(this, "Usuario eliminado por id exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
-
+            Usuario usuarioEliminado = ControllerUsuario.buscarUsuario(id);
+            if (usuarioEliminado != null) {
+                ControllerUsuario.eliminarUsuario(id);
+                JOptionPane.showMessageDialog(this, "Usuario eliminado por ID exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ningún usuario con ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "ID inválido, debe ser un número entero.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void eliminarPorNombre(String nombre) {
-        try {
-            ControllerUsuario.eliminarVideoJuego(nombre);
-            JOptionPane.showMessageDialog(this, "usuario eliminado por nombre exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Nombre inválido", "Error", JOptionPane.ERROR_MESSAGE);
+        Usuario usuarioEliminado = ControllerUsuario.buscarUsuario(nombre);
+        if (usuarioEliminado != null) {
+            ControllerUsuario.eliminarUsuario(nombre);
+            JOptionPane.showMessageDialog(this, "Usuario eliminado por nombre exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró ningún usuario con ese nombre.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }
+
 }
