@@ -173,7 +173,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         });
 
         item9.addActionListener(e -> {
-            GUIAgregarUsuario guiAgregarUsuario = new GUIAgregarUsuario();
+            GUIAgregarUsuario guiAgregarUsuario = new GUIAgregarUsuario(false);
             guiAgregarUsuario.setVisible(true);
         });
 
@@ -183,7 +183,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         });
 
         item11.addActionListener(e -> {
-
+            GUIActualizarUsuario guiActualizarUsuario = new GUIActualizarUsuario();
+            guiActualizarUsuario.setVisible(true);
         });
 
 

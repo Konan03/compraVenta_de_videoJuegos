@@ -2,6 +2,7 @@ package view;
 
 import controller.ControllerUsuario;
 import model.Usuario;
+import model.VideoJuegoFisico;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -25,9 +26,14 @@ public class GUIAgregarUsuario extends JFrame implements IGUIEstilos{
     JDatePanelImpl datePanel = new JDatePanelImpl(model);
     JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
 
-    public GUIAgregarUsuario(){
+    public GUIAgregarUsuario(boolean esActualizar){
 
-        JLabel titulo = new JLabel("Agregar usuario");
+        JLabel titulo = new JLabel();
+        if (esActualizar) {
+            titulo.setText("Actualizar usuario");
+        }else {
+            titulo.setText("Agregar usuario");
+        }
         Font fuenteActual = titulo.getFont();
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
@@ -60,7 +66,12 @@ public class GUIAgregarUsuario extends JFrame implements IGUIEstilos{
         nombreTexto.setBorder(GRAY_BORDER);
         datePicker.setBorder(GRAY_BORDER);
 
-        agregarBTN = new JButton("Agregar");
+        agregarBTN = new JButton();
+        if(esActualizar){
+            agregarBTN.setText("Actualizar");
+        }else{
+            agregarBTN.setText("Agregar");
+        }
 
         panelLabels.add(idLabel);
         panelLabels.add(nombreLabel);
@@ -78,27 +89,47 @@ public class GUIAgregarUsuario extends JFrame implements IGUIEstilos{
         agregarBTN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                agrgarUsuario();
+                agregarOActualizarUsuario(esActualizar);
             }
         });
     }
 
-    public void agrgarUsuario(){
+    public void agregarOActualizarUsuario(boolean esActualizar){
         try {
             int idInt = Integer.parseInt(idTexto.getText());
             String nombre = nombreTexto.getText();
             Date date = (Date) datePicker.getModel().getValue();
             LocalDate seleccionFecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            Usuario nuevoUsuario = new Usuario(idInt, nombre, seleccionFecha);
+            if(esActualizar){
+                Usuario usuarioActual = new Usuario(idInt, nombre, seleccionFecha);
+                usuarioActual.setId(idInt);
+                usuarioActual.setNombre(nombre);
+                usuarioActual.setFechaNacimiento(seleccionFecha);
+                ControllerUsuario.actualizarUsuario(usuarioActual);
+                JOptionPane.showMessageDialog(this, "usuario actualizado con éxito.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
 
-            ControllerUsuario.agregarUsuario(nuevoUsuario);
-            JOptionPane.showMessageDialog(this, "Usuario agregado exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                Usuario nuevoUsuario = new Usuario(idInt, nombre, seleccionFecha);
+
+                ControllerUsuario.agregarUsuario(nuevoUsuario);
+                JOptionPane.showMessageDialog(this, "Usuario agregado exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
 
         }catch (Exception e){
             JOptionPane.showMessageDialog(this, "Error al agregar el usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    public void cargarDatos(Usuario usuario) {
+        idTexto.setText(String.valueOf(usuario.getId()));
+        nombreTexto.setText(usuario.getNombre());
+        LocalDate fecha = usuario.getFechaNacimiento();
+        model.setDate(fecha.getYear(), fecha.getMonthValue() - 1, fecha.getDayOfMonth());
+        model.setSelected(true);
+
+    }
 
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import model.IActualizable;
 import model.Usuario;
 import model.VideoJuego;
 
@@ -9,6 +10,7 @@ import java.util.List;
 public class ControllerUsuario {
 
     private static List<Usuario> usuarios = new ArrayList<>();
+    private static List<IActualizable> guiActualiza = new ArrayList<>();
 
     public static void agregarUsuario(Usuario usuario) throws RuntimeException {
         if (usuario != null) {
@@ -70,6 +72,31 @@ public class ControllerUsuario {
             }
         }
         return null;
+    }
+
+    public static void actualizar(){
+        for (IActualizable act : guiActualiza){
+            act.actualizar();
+        }
+    }
+    public void addActualizable(IActualizable actualizable){
+        guiActualiza.add(actualizable);
+    }
+
+    public static void actualizarUsuario(Usuario usuario){
+        boolean actualizo = false;
+        for (Usuario u : usuarios){
+            if(u.getId() == usuario.getId()){
+                u.setNombre(usuario.getNombre());
+                u.setId(usuario.getId());
+                u.setFechaNacimiento(usuario.getFechaNacimiento());
+                actualizar();
+                System.out.println("Usuario actualizado");
+                actualizo = true;
+                break;
+            }
+        }
+        System.out.println("No se encontro un usuario con es ID");
     }
 
 }
