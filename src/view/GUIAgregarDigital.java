@@ -22,7 +22,7 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
 
     private JTextArea descripcionTexto;
     private JLabel idLabel, nombreLabel, precioLabel, stockLabel, descripcionLabel,
-            plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, claveActivacionLabel, experacionClaveLabel;
+            plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, claveActivacionLabel, experacionClaveLabel, usuarioLabel;
     private JButton guardarBTN;
 
     private JComboBox<Usuario> usuarioComboBox;
@@ -61,10 +61,6 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         setLayout(new BorderLayout());
         getContentPane().setBackground(COLOR);
 
-        usuarioComboBox = new JComboBox<>();
-        cargarUsuarios();
-        usuarioComboBox.setBorder(GRAY_BORDER);
-
         idLabel = new JLabel("Id: ");
         idLabel.setHorizontalAlignment(JLabel.CENTER);
         nombreLabel = new JLabel("Nombre: ");
@@ -87,6 +83,8 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         claveActivacionLabel.setHorizontalAlignment(JLabel.CENTER);
         experacionClaveLabel = new JLabel("Vence: ");
         experacionClaveLabel.setHorizontalAlignment(JLabel.CENTER);
+        usuarioLabel = new JLabel("Usuario: ");
+        usuarioLabel.setHorizontalAlignment(JLabel.CENTER);
 
         idTexto = new JTextField();
         idTexto.setBorder(GRAY_BORDER);
@@ -104,12 +102,12 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         generoTexto.setBorder(GRAY_BORDER);
         calificacionEdadTexto = new JTextField();
         calificacionEdadTexto.setBorder(GRAY_BORDER);
-        //fechaLanzamientotexto = new JTextField();
         datePicker.setBorder(GRAY_BORDER);
         claveActivacionTexto = new JTextField();
         claveActivacionTexto.setBorder(GRAY_BORDER);
-        //expiracionClaveTexto = new JTextField();
         datePicker.setBorder(GRAY_BORDER);
+        usuarioComboBox = new JComboBox<>();
+        usuarioComboBox.setBorder(GRAY_BORDER);
 
         guardarBTN = new JButton();
         if (esActualizar) {
@@ -129,6 +127,7 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         panelLabels.add(fechaLanzamientoLabel);
         panelLabels.add(claveActivacionLabel);
         panelLabels.add(experacionClaveLabel);
+        panelLabels.add(usuarioLabel);
 
         panelTexto.add(idTexto);
         panelTexto.add(nombreTexto);
@@ -141,14 +140,13 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         panelTexto.add(datePicker);
         panelTexto.add(claveActivacionTexto);
         panelTexto.add(datePicker2);
+        panelTexto.add(usuarioComboBox);
 
         add(titulo, BorderLayout.NORTH);
         add(panelLabels, BorderLayout.WEST);
         add(panelTexto, BorderLayout.CENTER);
         add(guardarBTN, BorderLayout.SOUTH);
 
-        panelLabels.add(new JLabel("Usuario: "));
-        panelTexto.add(usuarioComboBox);
 
         guardarBTN.addActionListener(new ActionListener() {
             @Override
@@ -156,6 +154,9 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
                 agregarOActualizarVideoJuego(esActualizar);
             }
         });
+
+        cargarUsuarios();
+
 
 
     }
