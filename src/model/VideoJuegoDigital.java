@@ -48,9 +48,11 @@ public class VideoJuegoDigital extends VideoJuego  {
         return "VideoJuegoDigital{" +
                 "\n" + super.toString() +
                 ",\nclaveActivacion='" + claveActivacion + '\'' +
-                ",\nexpiracionClave=" + expiracionClave +
+                ",\nexpiracionClave='" + expiracionClave + '\'' +
+                ",\nnombreUsuario='" + usuario.getNombre() + '\'' +
                 "\n}";
     }
+
 
     @Override
     public boolean validarVideoJuego() {
