@@ -1,9 +1,11 @@
 package model;
 
-public class VideoJuegoDigital extends VideoJuego  implements IDescuentoAplicable {
+public class VideoJuegoDigital extends VideoJuego  {
 
     private String claveActivacion;
     private String expiracionClave;
+
+    private Usuario usuario;
 
     public VideoJuegoDigital(int id, String nombre, double precio, int stock,
                              String descripcion, String plataforma, String genero,
@@ -12,6 +14,7 @@ public class VideoJuegoDigital extends VideoJuego  implements IDescuentoAplicabl
         super(id, nombre, precio, stock, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento);
         this.claveActivacion = calveActivacion;
         this.expiracionClave = expiracionClave;
+        this.usuario = usuario;
     }
 
     public String getClaveActivacion() {
@@ -30,6 +33,10 @@ public class VideoJuegoDigital extends VideoJuego  implements IDescuentoAplicabl
         this.expiracionClave = expiracionClave;
     }
 
+    public Usuario getUsuario() {return this.usuario;}
+
+    public void setUsuario(Usuario usuario) {this.usuario = usuario;}
+
     public double calcularPrecio(){
 
         double precio = getPrecio();
@@ -43,13 +50,6 @@ public class VideoJuegoDigital extends VideoJuego  implements IDescuentoAplicabl
                 ",\nclaveActivacion='" + claveActivacion + '\'' +
                 ",\nexpiracionClave=" + expiracionClave +
                 "\n}";
-    }
-
-    @Override
-    public double aplicarDescuento() {
-        double descuento = getPrecio() * 0.10;
-        setPrecio(getPrecio() - descuento);
-        return descuento;
     }
 
     @Override

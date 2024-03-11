@@ -202,10 +202,9 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         calificacionEdadTexto.setText(videojuegoFisico.getCalificacionEdad());
         empaqueTexto.setText(videojuegoFisico.getEmpaque());
         estadoTexto.setText(videojuegoFisico.getEstado());
-
         LocalDate fechaLanzamiento = LocalDate.parse(videojuegoFisico.getFechaLanzamiento());
-        datePicker.getModel().setDate(fechaLanzamiento.getYear(), fechaLanzamiento.getMonthValue() - 1, fechaLanzamiento.getDayOfMonth());
-        datePicker.getModel().setSelected(true);
+        model.setDate(fechaLanzamiento.getYear(), fechaLanzamiento.getMonthValue() - 1, fechaLanzamiento.getDayOfMonth());
+        model.setSelected(true);
     }
 
 }

@@ -109,7 +109,6 @@ public abstract class VideoJuego {
                 "\nid=" + id +
                 ",\nnombre='" + nombre + '\'' +
                 ",\nprecioNormal=" + precio +
-                ",\nprecioDescuento=" + precio +
                 ",\nstock=" + stock +
                 ",\ndescripcion='" + descripcion + '\'' +
                 ",\nplataforma='" + plataforma + '\'' +

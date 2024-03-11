@@ -1,6 +1,8 @@
 package view;
 
+import controller.ControllerUsuario;
 import controller.ControllerVideoJuego;
+import model.Usuario;
 import model.VideoJuego;
 import model.VideoJuegoDigital;
 import javax.swing.*;
@@ -23,6 +25,8 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
             plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, claveActivacionLabel, experacionClaveLabel;
     private JButton guardarBTN;
 
+    private JComboBox<Usuario> usuarioComboBox;
+
     UtilDateModel model = new UtilDateModel();
     UtilDateModel model2 = new UtilDateModel();
     JDatePanelImpl datePanel = new JDatePanelImpl(model2);
@@ -34,18 +38,18 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
 
         JLabel titulo;
         if (esActualizar) {
-            titulo = new JLabel("Actualizar juego fisico");
+            titulo = new JLabel("Actualizar juego digital");
         } else {
-            titulo = new JLabel("Agregar juego fisico");
+            titulo = new JLabel("Agregar juego digital");
         }
         Font fuenteActual = titulo.getFont();
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
         JPanel panelLabels = new JPanel();
-        panelLabels.setLayout(new GridLayout(11, 1));
+        panelLabels.setLayout(new GridLayout(12, 1));
         panelLabels.setBackground(COLOR);
         JPanel panelTexto = new JPanel();
-        panelTexto.setLayout(new GridLayout(11, 1));
+        panelTexto.setLayout(new GridLayout(12, 1));
         panelTexto.setBackground(COLOR);
 
         setTitle("Agregar videojuego");
@@ -56,6 +60,10 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         getContentPane().setBackground(COLOR);
+
+        usuarioComboBox = new JComboBox<>();
+        cargarUsuarios();
+        usuarioComboBox.setBorder(GRAY_BORDER);
 
         idLabel = new JLabel("Id: ");
         idLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -139,6 +147,9 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         add(panelTexto, BorderLayout.CENTER);
         add(guardarBTN, BorderLayout.SOUTH);
 
+        panelLabels.add(new JLabel("Usuario: "));
+        panelTexto.add(usuarioComboBox);
+
         guardarBTN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -147,6 +158,12 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         });
 
 
+    }
+
+    private void cargarUsuarios() {
+        for (Usuario usuario : ControllerUsuario.listarUsuarios()) {
+            usuarioComboBox.addItem(usuario);
+        }
     }
 
     private void agregarOActualizarVideoJuego(boolean esActualizar) {
@@ -165,6 +182,14 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
             Date seleccionFecha2 = (Date) datePicker2.getModel().getValue();
             String expiracionClave = seleccionFecha2.toString();
 
+
+            Usuario selectedUser = (Usuario) usuarioComboBox.getSelectedItem();
+
+
+            if (selectedUser == null) {
+                throw new RuntimeException("Error: Debes seleccionar un usuario antes de agregar o actualizar el videojuego.");
+            }
+
             if (esActualizar) {
                 VideoJuegoDigital videojuegoDigitalActual = new VideoJuegoDigital(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, claveActivacion, expiracionClave);
                 videojuegoDigitalActual.setId(idint);
@@ -179,13 +204,20 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
                 videojuegoDigitalActual.setFechaLanzamiento(fechaLanzamiento);
                 videojuegoDigitalActual.setExpiracionClave(expiracionClave);
 
+                videojuegoDigitalActual.setUsuario(selectedUser);
+
+
                 ControllerVideoJuego.actualizarVideojuego(videojuegoDigitalActual);
                 JOptionPane.showMessageDialog(GUIAgregarDigital.this, "Videojuego digital actualizado con éxito.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
 
+
             } else {
+
+
 
                 VideoJuego nuevoVideoJuego = new VideoJuegoDigital(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, claveActivacion, expiracionClave);
 
+                ((VideoJuegoDigital) nuevoVideoJuego).setUsuario(selectedUser);
 
                 ControllerVideoJuego.agregarVideoJuego(nuevoVideoJuego);
                 JOptionPane.showMessageDialog(this, "Videojuego agregado exitosamente: ", "Exito", JOptionPane.INFORMATION_MESSAGE);
@@ -206,14 +238,20 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         generoTexto.setText(videojuegoDigital.getGenero());
         calificacionEdadTexto.setText(videojuegoDigital.getCalificacionEdad());
         claveActivacionTexto.setText(videojuegoDigital.getClaveActivacion());
-
         LocalDate fechaLanzamiento = LocalDate.parse(videojuegoDigital.getFechaLanzamiento());
-        datePicker.getModel().setDate(fechaLanzamiento.getYear(), fechaLanzamiento.getMonthValue() - 1, fechaLanzamiento.getDayOfMonth());
-        datePicker.getModel().setSelected(true);
+        model.setDate(fechaLanzamiento.getYear(), fechaLanzamiento.getMonthValue() - 1, fechaLanzamiento.getDayOfMonth());
+        model.setSelected(true);
+        LocalDate expiracionClave = LocalDate.parse(videojuegoDigital.getFechaLanzamiento());
+        model.setDate(expiracionClave.getYear(), expiracionClave.getMonthValue() - 1, expiracionClave.getDayOfMonth());
+        model.setSelected(true);
 
-        LocalDate expiracionClave = LocalDate.parse(videojuegoDigital.getExpiracionClave());
-        datePicker2.getModel().setDate(expiracionClave.getYear(), expiracionClave.getMonthValue() - 1, expiracionClave.getDayOfMonth());
-        datePicker2.getModel().setSelected(true);
+        for (int i = 0; i < usuarioComboBox.getItemCount(); i++) {
+            Usuario usuario = (Usuario) usuarioComboBox.getItemAt(i);
+            if (usuario.getId() == videojuegoDigital.getUsuario().getId()) {
+                usuarioComboBox.setSelectedIndex(i);
+                break;
+            }
+        }
     }
 
 }

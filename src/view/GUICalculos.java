@@ -35,7 +35,7 @@ public class GUICalculos extends JFrame implements IGUIEstilos{
         panelInvisible4.setPreferredSize(new Dimension(100, 150));
         panelInvisible4.setBackground(COLOR);
 
-        titulo = new JLabel("Ingrese el Id o el Nombre del juego Fisico para descuento ");
+        titulo = new JLabel("<html><div style='text-align: center;'>Ingrese el Id o el Nombre del juego Físico para aplicar descuento</div></html>");
         Font fuenteActual = titulo.getFont();
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
