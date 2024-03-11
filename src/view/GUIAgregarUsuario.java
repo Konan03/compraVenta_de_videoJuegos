@@ -114,7 +114,7 @@ public class GUIAgregarUsuario extends JFrame implements IGUIEstilos{
 
                 ControllerUsuario.agregarUsuario(nuevoUsuario);
                 JOptionPane.showMessageDialog(this, "Usuario agregado exitosamente: " , "Exito", JOptionPane.INFORMATION_MESSAGE);
-
+    
             }
 
 
