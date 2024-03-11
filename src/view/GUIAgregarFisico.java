@@ -8,10 +8,10 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -194,7 +194,7 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
     public void cargarDatosFisico(VideoJuegoFisico videojuegoFisico) {
         idTexto.setText(String.valueOf(videojuegoFisico.getId()));
         nombreTexto.setText(videojuegoFisico.getNombre());
-        precioTexto.setText(String.valueOf(videojuegoFisico.getPrecio()));
+        precioTexto.setText(String.format("%.2f", videojuegoFisico.getPrecio()));
         stockTexto.setText(String.valueOf(videojuegoFisico.getStock()));
         descripcionTexto.setText(videojuegoFisico.getDescripcion());
         plataformaTexto.setText(videojuegoFisico.getPlataforma());
@@ -202,5 +202,10 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         calificacionEdadTexto.setText(videojuegoFisico.getCalificacionEdad());
         empaqueTexto.setText(videojuegoFisico.getEmpaque());
         estadoTexto.setText(videojuegoFisico.getEstado());
+
+        LocalDate fechaLanzamiento = LocalDate.parse(videojuegoFisico.getFechaLanzamiento());
+        datePicker.getModel().setDate(fechaLanzamiento.getYear(), fechaLanzamiento.getMonthValue() - 1, fechaLanzamiento.getDayOfMonth());
+        datePicker.getModel().setSelected(true);
     }
+
 }
