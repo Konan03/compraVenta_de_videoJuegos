@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerVideoJuego;
+import model.EmpresaVideojuego;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     private JMenuItem item11;
     private JMenuItem item12;
     private JMenuItem item13;
+    private JMenuItem item14;
     private ControllerVideoJuego videojuego;
 
     private GUIListar guiListar;
@@ -81,6 +83,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         item11 = new JMenuItem("Actualizar");
         item12 = new JMenuItem("Listar");
         item13 = new JMenuItem("Buscar");
+        item14 = new JMenuItem("Empresa");
 
 
 
@@ -104,6 +107,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
 
 
         ayuda.add(item7);
+        ayuda.addSeparator();
+        ayuda.add(item14);
 
         usuario.add(item9);
         usuario.addSeparator();
@@ -214,6 +219,11 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         item13.addActionListener(e -> {
             GUIBuscarUsuario guiBuscarUsuario = new GUIBuscarUsuario();
             guiBuscarUsuario.setVisible(true);
+        });
+
+        item14.addActionListener(e -> {
+            JOptionPane.showMessageDialog(GUIPrincipal.this, EmpresaVideojuego.getEmpresa().toString(),
+                    "Informacion empresa", JOptionPane.INFORMATION_MESSAGE );
         });
 
     }
