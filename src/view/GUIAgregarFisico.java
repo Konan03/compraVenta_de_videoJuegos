@@ -156,9 +156,12 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         precioTexto.setText(String.format("%.2f", videojuegoFisico.getPrecio()));
         stockTexto.setText(String.valueOf(videojuegoFisico.getStock()));
         estadoTexto.setText(videojuegoFisico.getEstado());
+<<<<<<< HEAD
         LocalDate fechaLanzamiento = videojuegoFisico.getFechaLanzamiento();
         model.setDate(fechaLanzamiento.getYear(), fechaLanzamiento.getMonthValue() - 1, fechaLanzamiento.getDayOfMonth());
         model.setSelected(true);
+=======
+>>>>>>> ddde9d72cf557ec4d2a57d86c1dca891028587d6
     }
 
 }
