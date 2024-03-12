@@ -13,8 +13,11 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     private JMenu archivo;
     private JMenu ayuda;
     private JMenu usuario;
+    private JMenu juegoFisico;
+    private JMenu juegoDigital;
     private JMenuBar menuBar;
     private JLabel logo;
+    private JMenuItem item0;
     private JMenuItem item1;
     private JMenuItem item2;
     private JMenuItem item3;
@@ -54,14 +57,17 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         });
 
         //iniciamos opciones, autores, el menu y el logo
-        opciones = new JMenu("Opciones");
+        opciones = new JMenu("Opciones juego");
         ayuda = new JMenu("Ayuda");
         archivo = new JMenu("Archivo");
         usuario = new JMenu("Usuario");
+        juegoFisico = new JMenu("Juego fisico");
+        juegoDigital = new JMenu("Juego digital");
         menuBar = new JMenuBar();
         logo = new JLabel(URLimagen);
 
         //iniciamos los items del menu opciones
+        item0 = new JMenuItem("Agregar");
         item1 = new JMenuItem("Agregar");
         item2 = new JMenuItem("Eliminar");
         item3 = new JMenuItem("Actualizar");
@@ -84,8 +90,8 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
 
         archivo.add(item6);
 
-        opciones.add(item1);
-        opciones.addSeparator();
+        //opciones.add(item1);
+        //opciones.addSeparator();
         opciones.add(item2);
         opciones.addSeparator();
         opciones.add(item3);
@@ -109,12 +115,17 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
         usuario.addSeparator();
         usuario.add(item13);
 
+        juegoFisico.add(item0);
+        juegoDigital.add(item1);
+
 
         //agregamos el menu opciones y el menu autores al menuBar
         menuBar.add(archivo);
         menuBar.add(opciones);
-        menuBar.add(ayuda);
         menuBar.add(usuario);
+        menuBar.add(juegoFisico);
+        menuBar.add(juegoDigital);
+        menuBar.add(ayuda);
 
         //asignamos el menuBar
         setJMenuBar(menuBar);
@@ -134,9 +145,16 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
                     JOptionPane.INFORMATION_MESSAGE);
         });
 
+        item0.addActionListener(e -> {
+            GUIAgregarFisico guiAgregarFisico = new GUIAgregarFisico(false);
+            guiAgregarFisico.setVisible(true);
+        });
+
         item1.addActionListener(e -> {
-            GUISeleccionar guiSeleccionar = new GUISeleccionar();
-            guiSeleccionar.setVisible(true);
+            //GUISeleccionar guiSeleccionar = new GUISeleccionar();
+            //guiSeleccionar.setVisible(true);
+            GUIAgregarDigital guiAgregarDigital = new GUIAgregarDigital(false);
+            guiAgregarDigital.setVisible(true);
         });
 
         item2.addActionListener(e -> {
