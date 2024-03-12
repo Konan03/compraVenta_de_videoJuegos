@@ -11,7 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -185,6 +187,7 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
     }
 
     public void cargarDatosDigital(VideoJuegoDigital videojuegoDigital) {
+
         idTexto.setText(String.valueOf(videojuegoDigital.getId()));
         nombreTexto.setText(videojuegoDigital.getNombre());
         precioTexto.setText(String.format("%.2f", videojuegoDigital.getPrecio()));
@@ -194,6 +197,16 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         model.setDate(fechaLanzamiento.getYear(), fechaLanzamiento.getMonthValue() - 1, fechaLanzamiento.getDayOfMonth());
         model.setSelected(true);
 
+        try {
+            idTexto.setText(String.valueOf(videojuegoDigital.getId()));
+            nombreTexto.setText(videojuegoDigital.getNombre());
+            precioTexto.setText(String.format("%.2f", videojuegoDigital.getPrecio()));
+            stockTexto.setText(String.valueOf(videojuegoDigital.getStock()));
+            claveActivacionTexto.setText(videojuegoDigital.getClaveActivacion());
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
         for (int i = 0; i < usuarioComboBox.getItemCount(); i++) {
             Usuario usuario = (Usuario) usuarioComboBox.getItemAt(i);
