@@ -140,7 +140,7 @@ public class GUIPrincipal extends JFrame implements IGUIEstilos {
     public void activarOpciones() {
         item7.addActionListener(e -> {
             JOptionPane.showMessageDialog(GUIPrincipal.this,
-                    "Jose Manuel Caicedo Perdomo\nJuan David Gonzales\nSebastian Murillo\nMariana Millan\n\nv.0.1",
+                    "Jose Manuel Caicedo Perdomo\nJuan David Gonzalez\nSebastian Murillo\nMariana Millan\n\nv.0.1",
                     "Autores",
                     JOptionPane.INFORMATION_MESSAGE);
         });

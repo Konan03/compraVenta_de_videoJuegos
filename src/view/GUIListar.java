@@ -6,6 +6,7 @@ import model.VideoJuego;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -13,9 +14,9 @@ public class GUIListar extends JFrame implements IGUIEstilos, IActualizable {
 
     private ArrayList<VideoJuego> juegos = new ArrayList<>();
     private ControllerVideoJuego controllerVideoJuego;
-    private JPanel panelBotones;
+    private JTable tabla;
 
-    public GUIListar(){
+    public GUIListar() {
         setTitle("Listado Videojuegos");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -23,24 +24,27 @@ public class GUIListar extends JFrame implements IGUIEstilos, IActualizable {
         getContentPane().setBackground(COLOR);
         setLayout(new BorderLayout());
 
-        panelBotones = new JPanel();
-        panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
-        panelBotones.setBackground(COLOR);
-        panelBotones.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        JPanel panelTitulo = new JPanel();
+        panelTitulo.setBackground(COLOR);
+        panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER));
         JLabel titleLabel = new JLabel("Listado Videojuegos");
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setForeground(Color.WHITE);
-        add(titleLabel, BorderLayout.NORTH);
+        panelTitulo.add(titleLabel);
+        add(panelTitulo, BorderLayout.NORTH);
 
-        JScrollPane scrollPane = new JScrollPane(panelBotones);
+        tabla = new JTable();
+        tabla.setBackground(Color.lightGray);
+        tabla.setForeground(Color.black);
+        tabla.setFont(new Font("Arial", Font.PLAIN, 12));
+
+        JScrollPane scrollPane = new JScrollPane(tabla);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
 
         controllerVideoJuego = new ControllerVideoJuego();
 
         juegos.addAll(ControllerVideoJuego.listarVideoJuegos());
-        crearBotones();
+        actualizarTabla();
 
         controllerVideoJuego.addActualizable(this);
 
@@ -48,38 +52,29 @@ public class GUIListar extends JFrame implements IGUIEstilos, IActualizable {
         setVisible(true);
     }
 
-    public void crearBotones(){
-        panelBotones.removeAll();
+    private void actualizarTabla() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nombre");
+        model.addColumn("Stock");
+        model.addColumn("Precio");
 
         for (VideoJuego videoJuego : juegos) {
-            JButton button = new JButton(videoJuego.getNombre());
-            button.setBorder(new BevelBorder(BevelBorder.RAISED));
-
-            button.setBackground(Color.lightGray);
-            button.setForeground(Color.black);
-
-            button.addActionListener(e -> {
-                JOptionPane.showMessageDialog(this, videoJuego.toString(), "Información", JOptionPane.INFORMATION_MESSAGE);
-            });
-
-            button.setPreferredSize(new Dimension(400, 50));
-            button.setMaximumSize(new Dimension(400, 50));
-            button.setMinimumSize(new Dimension(400, 50));
-
-            button.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            panelBotones.add(button);
-            panelBotones.add(Box.createVerticalStrut(10));
+            Object[] row = new Object[4];
+            row[0] = videoJuego.getId();
+            row[1] = videoJuego.getNombre();
+            row[2] = videoJuego.getStock();
+            row[3] = videoJuego.getPrecio();
+            model.addRow(row);
         }
 
-        revalidate();
-        repaint();
+        tabla.setModel(model);
     }
 
     @Override
     public void actualizar() {
         juegos.clear();
         juegos.addAll(ControllerVideoJuego.listarVideoJuegos());
-        crearBotones();
+        actualizarTabla();
     }
 }
