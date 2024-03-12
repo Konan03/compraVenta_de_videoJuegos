@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -17,22 +18,15 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
 
-    private JTextField idTexto, nombreTexto, precioTexto, stockTexto,
-            plataformaTexto, generoTexto, calificacionEdadTexto, claveActivacionTexto;
-
-    private JTextArea descripcionTexto;
-    private JLabel idLabel, nombreLabel, precioLabel, stockLabel, descripcionLabel,
-            plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, claveActivacionLabel, experacionClaveLabel, usuarioLabel;
+    private JTextField idTexto, nombreTexto, precioTexto, stockTexto, claveActivacionTexto;
+    private JLabel idLabel, nombreLabel, precioLabel, stockLabel, fechaLanzamientoLabel, claveActivacionLabel, usuarioLabel;
     private JButton guardarBTN;
 
     private JComboBox<Usuario> usuarioComboBox;
 
     UtilDateModel model = new UtilDateModel();
-    UtilDateModel model2 = new UtilDateModel();
-    JDatePanelImpl datePanel = new JDatePanelImpl(model2);
-    JDatePanelImpl datePanel2 = new JDatePanelImpl(model);
-    JDatePickerImpl datePicker = new JDatePickerImpl(datePanel2);
-    JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel);
+    JDatePanelImpl datePanel = new JDatePanelImpl(model);
+    JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
 
     public GUIAgregarDigital(boolean esActualizar) {
 
@@ -46,10 +40,10 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
         JPanel panelLabels = new JPanel();
-        panelLabels.setLayout(new GridLayout(12, 1));
+        panelLabels.setLayout(new GridLayout(7, 1));
         panelLabels.setBackground(COLOR);
         JPanel panelTexto = new JPanel();
-        panelTexto.setLayout(new GridLayout(12, 1));
+        panelTexto.setLayout(new GridLayout(7, 1));
         panelTexto.setBackground(COLOR);
 
         setTitle("Agregar videojuego");
@@ -69,20 +63,10 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         precioLabel.setHorizontalAlignment(JLabel.CENTER);
         stockLabel = new JLabel("Stock");
         stockLabel.setHorizontalAlignment(JLabel.CENTER);
-        descripcionLabel = new JLabel("Descripcion: ");
-        descripcionLabel.setHorizontalAlignment(JLabel.CENTER);
-        plataformaLabel = new JLabel("Plataforma: ");
-        plataformaLabel.setHorizontalAlignment(JLabel.CENTER);
-        generoLabel = new JLabel("Genero: ");
-        generoLabel.setHorizontalAlignment(JLabel.CENTER);
-        calificacionEdadLabel = new JLabel("Edad Minima: ");
-        calificacionEdadLabel.setHorizontalAlignment(JLabel.CENTER);
         fechaLanzamientoLabel = new JLabel("Fecha Lanzamiento: ");
         fechaLanzamientoLabel.setHorizontalAlignment(JLabel.CENTER);
         claveActivacionLabel = new JLabel("Clave: ");
         claveActivacionLabel.setHorizontalAlignment(JLabel.CENTER);
-        experacionClaveLabel = new JLabel("Vence: ");
-        experacionClaveLabel.setHorizontalAlignment(JLabel.CENTER);
         usuarioLabel = new JLabel("Usuario: ");
         usuarioLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -94,18 +78,10 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         precioTexto.setBorder(GRAY_BORDER);
         stockTexto = new JTextField();
         stockTexto.setBorder(GRAY_BORDER);
-        descripcionTexto = new JTextArea();
-        descripcionTexto.setBorder(GRAY_BORDER);
-        plataformaTexto = new JTextField();
-        plataformaTexto.setBorder(GRAY_BORDER);
-        generoTexto = new JTextField();
-        generoTexto.setBorder(GRAY_BORDER);
-        calificacionEdadTexto = new JTextField();
-        calificacionEdadTexto.setBorder(GRAY_BORDER);
+        //fechaLanzamientotexto = new JTextField();
         datePicker.setBorder(GRAY_BORDER);
         claveActivacionTexto = new JTextField();
         claveActivacionTexto.setBorder(GRAY_BORDER);
-        datePicker.setBorder(GRAY_BORDER);
         usuarioComboBox = new JComboBox<>();
         usuarioComboBox.setBorder(GRAY_BORDER);
 
@@ -120,26 +96,16 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         panelLabels.add(nombreLabel);
         panelLabels.add(precioLabel);
         panelLabels.add(stockLabel);
-        panelLabels.add(descripcionLabel);
-        panelLabels.add(plataformaLabel);
-        panelLabels.add(generoLabel);
-        panelLabels.add(calificacionEdadLabel);
         panelLabels.add(fechaLanzamientoLabel);
         panelLabels.add(claveActivacionLabel);
-        panelLabels.add(experacionClaveLabel);
         panelLabels.add(usuarioLabel);
 
         panelTexto.add(idTexto);
         panelTexto.add(nombreTexto);
         panelTexto.add(precioTexto);
         panelTexto.add(stockTexto);
-        panelTexto.add(descripcionTexto);
-        panelTexto.add(plataformaTexto);
-        panelTexto.add(generoTexto);
-        panelTexto.add(calificacionEdadTexto);
         panelTexto.add(datePicker);
         panelTexto.add(claveActivacionTexto);
-        panelTexto.add(datePicker2);
         panelTexto.add(usuarioComboBox);
 
         add(titulo, BorderLayout.NORTH);
@@ -173,15 +139,9 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
             String nombre = nombreTexto.getText();
             double precioDouble = Double.parseDouble(precioTexto.getText());
             int stockint = Integer.parseInt(stockTexto.getText());
-            String descripcion = descripcionTexto.getText();
-            String plataforma = plataformaTexto.getText();
-            String genero = generoTexto.getText();
-            String calificacionEdad = calificacionEdadTexto.getText();
-            Date seleccionFecha = (Date) datePicker.getModel().getValue();
-            String fechaLanzamiento = seleccionFecha.toString();
+            Date date = (Date) datePicker.getModel().getValue();
+            LocalDate fechaLanzamiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             String claveActivacion = claveActivacionTexto.getText();
-            Date seleccionFecha2 = (Date) datePicker2.getModel().getValue();
-            String expiracionClave = seleccionFecha2.toString();
 
 
             Usuario selectedUser = (Usuario) usuarioComboBox.getSelectedItem();
@@ -192,18 +152,13 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
             }
 
             if (esActualizar) {
-                VideoJuegoDigital videojuegoDigitalActual = new VideoJuegoDigital(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, claveActivacion, expiracionClave);
+                VideoJuegoDigital videojuegoDigitalActual = new VideoJuegoDigital(idint, nombre, precioDouble, stockint,  fechaLanzamiento, claveActivacion);
                 videojuegoDigitalActual.setId(idint);
                 videojuegoDigitalActual.setNombre(nombre);
                 videojuegoDigitalActual.setPrecio(precioDouble);
                 videojuegoDigitalActual.setStock(stockint);
-                videojuegoDigitalActual.setDescripcion(descripcion);
-                videojuegoDigitalActual.setPlataforma(plataforma);
-                videojuegoDigitalActual.setGenero(genero);
-                videojuegoDigitalActual.setCalificacionEdad(calificacionEdad);
                 videojuegoDigitalActual.setClaveActivacion(claveActivacion);
                 videojuegoDigitalActual.setFechaLanzamiento(fechaLanzamiento);
-                videojuegoDigitalActual.setExpiracionClave(expiracionClave);
 
                 videojuegoDigitalActual.setUsuario(selectedUser);
 
@@ -216,7 +171,7 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
 
 
 
-                VideoJuego nuevoVideoJuego = new VideoJuegoDigital(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, claveActivacion, expiracionClave);
+                VideoJuego nuevoVideoJuego = new VideoJuegoDigital(idint, nombre, precioDouble, stockint,  fechaLanzamiento, claveActivacion);
 
                 ((VideoJuegoDigital) nuevoVideoJuego).setUsuario(selectedUser);
 
@@ -234,17 +189,11 @@ public class GUIAgregarDigital extends JFrame implements IGUIEstilos {
         nombreTexto.setText(videojuegoDigital.getNombre());
         precioTexto.setText(String.format("%.2f", videojuegoDigital.getPrecio()));
         stockTexto.setText(String.valueOf(videojuegoDigital.getStock()));
-        descripcionTexto.setText(videojuegoDigital.getDescripcion());
-        plataformaTexto.setText(videojuegoDigital.getPlataforma());
-        generoTexto.setText(videojuegoDigital.getGenero());
-        calificacionEdadTexto.setText(videojuegoDigital.getCalificacionEdad());
         claveActivacionTexto.setText(videojuegoDigital.getClaveActivacion());
-        LocalDate fechaLanzamiento = LocalDate.parse(videojuegoDigital.getFechaLanzamiento());
+        LocalDate fechaLanzamiento = videojuegoDigital.getFechaLanzamiento();
         model.setDate(fechaLanzamiento.getYear(), fechaLanzamiento.getMonthValue() - 1, fechaLanzamiento.getDayOfMonth());
         model.setSelected(true);
-        LocalDate expiracionClave = LocalDate.parse(videojuegoDigital.getFechaLanzamiento());
-        model.setDate(expiracionClave.getYear(), expiracionClave.getMonthValue() - 1, expiracionClave.getDayOfMonth());
-        model.setSelected(true);
+
 
         for (int i = 0; i < usuarioComboBox.getItemCount(); i++) {
             Usuario usuario = (Usuario) usuarioComboBox.getItemAt(i);

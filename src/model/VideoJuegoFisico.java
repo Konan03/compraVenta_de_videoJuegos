@@ -1,17 +1,16 @@
 package model;
 
+import java.time.LocalDate;
+
 public class VideoJuegoFisico extends VideoJuego implements IDescuentoAplicable {
 
     private String estado;
-    private String empaque;
 
     public VideoJuegoFisico(int id, String nombre, double precio, int stock,
-                            String descripcion, String plataforma, String genero,
-                            String calificacionEdad, String fechaLanzamiento, String estado, String empaque) {
+                            LocalDate fechaLanzamiento, String estado) {
 
-        super(id, nombre, precio, stock, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento);
+        super(id, nombre, precio, stock, fechaLanzamiento);
         this.estado = estado;
-        this.empaque = empaque;
     }
 
     public String getEstado() {
@@ -22,20 +21,11 @@ public class VideoJuegoFisico extends VideoJuego implements IDescuentoAplicable 
         this.estado = estado;
     }
 
-    public String getEmpaque() {
-        return empaque;
-    }
-
-    public void setEmpaque(String empaque) {
-        this.empaque = empaque;
-    }
-
     @Override
     public String toString() {
         return "VideoJuegoFisico{" +
                 "\n" + super.toString() +
                 ",\nestado='" + estado + '\'' +
-                ",\nempaque='" + empaque + '\'' +
                 "\n}";
     }
 
@@ -54,6 +44,6 @@ public class VideoJuegoFisico extends VideoJuego implements IDescuentoAplicable 
 
     @Override
     public boolean validarVideoJuego() {
-        return getEstado() != null && getEmpaque() != null && !getEstado().isEmpty() && !getEmpaque().isEmpty();
+        return getEstado() != null && !getEstado().isEmpty();
     }
 }

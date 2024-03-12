@@ -12,17 +12,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 
 public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
 
-    private JTextField idTexto, nombreTexto, precioTexto, stockTexto,
-            plataformaTexto, generoTexto, calificacionEdadTexto, estadoTexto, empaqueTexto;
-
-    private JTextArea descripcionTexto;
-    private JLabel idLabel, nombreLabel, precioLabel, stockLabel, descripcionLabel,
-            plataformaLabel, generoLabel, calificacionEdadLabel, fechaLanzamientoLabel, estadoLabel, empaqueLabel;
+    private JTextField idTexto, nombreTexto, precioTexto, stockTexto, estadoTexto;
+    private JLabel idLabel, nombreLabel, precioLabel, stockLabel,  fechaLanzamientoLabel, estadoLabel;
     private JButton guardarBTN;
 
     UtilDateModel model = new UtilDateModel();
@@ -41,13 +38,13 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         titulo.setHorizontalAlignment(JLabel.CENTER);
         titulo.setFont(new Font(fuenteActual.getName(), fuenteActual.getStyle(), 20));
         JPanel panelLabels = new JPanel();
-        panelLabels.setLayout(new GridLayout(11,1));
+        panelLabels.setLayout(new GridLayout(6,1));
         panelLabels.setBackground(COLOR);
         JPanel panelTexto = new JPanel();
-        panelTexto.setLayout(new GridLayout(11,1));
+        panelTexto.setLayout(new GridLayout(6,1));
         panelTexto.setBackground(COLOR);
 
-        setTitle("Agregar video juego");
+        setTitle("Agregar videojuego");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -64,20 +61,11 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         precioLabel.setHorizontalAlignment(JLabel.CENTER);
         stockLabel = new JLabel("Stock");
         stockLabel.setHorizontalAlignment(JLabel.CENTER);
-        descripcionLabel = new JLabel("Descripcion: ");
-        descripcionLabel.setHorizontalAlignment(JLabel.CENTER);
-        plataformaLabel = new JLabel("Plataforma: ");
-        plataformaLabel.setHorizontalAlignment(JLabel.CENTER);
-        generoLabel = new JLabel("Genero: ");
-        generoLabel.setHorizontalAlignment(JLabel.CENTER);
-        calificacionEdadLabel = new JLabel("Edad Minima: ");
-        calificacionEdadLabel.setHorizontalAlignment(JLabel.CENTER);
         fechaLanzamientoLabel= new JLabel("Fecha Lanzamiento: ");
         fechaLanzamientoLabel.setHorizontalAlignment(JLabel.CENTER);
         estadoLabel = new JLabel("Estado: ");
         estadoLabel.setHorizontalAlignment(JLabel.CENTER);
-        empaqueLabel = new JLabel("Empaque: ");
-        empaqueLabel.setHorizontalAlignment(JLabel.CENTER);
+
 
         idTexto = new JTextField();
         idTexto.setBorder(GRAY_BORDER);
@@ -87,20 +75,11 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         precioTexto.setBorder(GRAY_BORDER);
         stockTexto = new JTextField();
         stockTexto.setBorder(GRAY_BORDER);
-        descripcionTexto = new JTextArea();
-        descripcionTexto.setBorder(GRAY_BORDER);
-        plataformaTexto = new JTextField();
-        plataformaTexto.setBorder(GRAY_BORDER);
-        generoTexto = new JTextField();
-        generoTexto.setBorder(GRAY_BORDER);
-        calificacionEdadTexto = new JTextField();
-        calificacionEdadTexto.setBorder(GRAY_BORDER);
         //fechaLanzamientotexto = new JTextField();
         datePicker.setBorder(GRAY_BORDER);
         estadoTexto = new JTextField();
         estadoTexto.setBorder(GRAY_BORDER);
-        empaqueTexto = new JTextField();
-        empaqueTexto.setBorder(GRAY_BORDER);
+
 
         guardarBTN = new JButton();
         if (esActualizar) {
@@ -114,25 +93,15 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         panelLabels.add(nombreLabel);
         panelLabels.add(precioLabel);
         panelLabels.add(stockLabel);
-        panelLabels.add(descripcionLabel);
-        panelLabels.add(plataformaLabel);
-        panelLabels.add(generoLabel);
-        panelLabels.add(calificacionEdadLabel);
         panelLabels.add(fechaLanzamientoLabel);
         panelLabels.add(estadoLabel);
-        panelLabels.add(empaqueLabel);
 
         panelTexto.add(idTexto);
         panelTexto.add(nombreTexto);
         panelTexto.add(precioTexto);
         panelTexto.add(stockTexto);
-        panelTexto.add(descripcionTexto);
-        panelTexto.add(plataformaTexto);
-        panelTexto.add(generoTexto);
-        panelTexto.add(calificacionEdadTexto);
         panelTexto.add(datePicker);
         panelTexto.add(estadoTexto);
-        panelTexto.add(empaqueTexto);
 
         add(titulo, BorderLayout.NORTH);
         add(panelLabels, BorderLayout.WEST);
@@ -153,33 +122,23 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
             String nombre = nombreTexto.getText();
             double precioDouble = Double.parseDouble(precioTexto.getText());
             int stockint = Integer.parseInt(stockTexto.getText());
-            String descripcion = descripcionTexto.getText();
-            String plataforma = plataformaTexto.getText();
-            String genero = generoTexto.getText();
-            String calificacionEdad = calificacionEdadTexto.getText();
-            Date seleccionFecha = (Date) datePicker.getModel().getValue();
-            String fechaLanzamiento = seleccionFecha.toString();
+            Date date = (Date) datePicker.getModel().getValue();
+            LocalDate fechaLanzamiento = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             String estado = estadoTexto.getText();
-            String empaque = empaqueTexto.getText();
 
             if (esActualizar) {
-                VideoJuegoFisico videojuegoFisicoActual = new VideoJuegoFisico(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, estado, empaque);
+                VideoJuegoFisico videojuegoFisicoActual = new VideoJuegoFisico(idint, nombre, precioDouble, stockint, fechaLanzamiento, estado);
                 videojuegoFisicoActual.setId(idint);
                 videojuegoFisicoActual.setNombre(nombre);
                 videojuegoFisicoActual.setPrecio(precioDouble);
                 videojuegoFisicoActual.setStock(stockint);
-                videojuegoFisicoActual.setDescripcion(descripcion);
-                videojuegoFisicoActual.setPlataforma(plataforma);
-                videojuegoFisicoActual.setGenero(genero);
-                videojuegoFisicoActual.setCalificacionEdad(calificacionEdad);
                 videojuegoFisicoActual.setEstado(estado);
-                videojuegoFisicoActual.setEmpaque(empaque);
                 videojuegoFisicoActual.setFechaLanzamiento(fechaLanzamiento);
 
                 ControllerVideoJuego.actualizarVideojuego(videojuegoFisicoActual);
             } else {
 
-                VideoJuego nuevoVideoJuego = new VideoJuegoFisico(idint, nombre, precioDouble, stockint, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento, estado, empaque);
+                VideoJuego nuevoVideoJuego = new VideoJuegoFisico(idint, nombre, precioDouble, stockint, fechaLanzamiento, estado);
 
 
                 ControllerVideoJuego.agregarVideoJuego(nuevoVideoJuego);
@@ -196,13 +155,8 @@ public class GUIAgregarFisico extends JFrame implements IGUIEstilos {
         nombreTexto.setText(videojuegoFisico.getNombre());
         precioTexto.setText(String.format("%.2f", videojuegoFisico.getPrecio()));
         stockTexto.setText(String.valueOf(videojuegoFisico.getStock()));
-        descripcionTexto.setText(videojuegoFisico.getDescripcion());
-        plataformaTexto.setText(videojuegoFisico.getPlataforma());
-        generoTexto.setText(videojuegoFisico.getGenero());
-        calificacionEdadTexto.setText(videojuegoFisico.getCalificacionEdad());
-        empaqueTexto.setText(videojuegoFisico.getEmpaque());
         estadoTexto.setText(videojuegoFisico.getEstado());
-        LocalDate fechaLanzamiento = LocalDate.parse(videojuegoFisico.getFechaLanzamiento());
+        LocalDate fechaLanzamiento = videojuegoFisico.getFechaLanzamiento();
         model.setDate(fechaLanzamiento.getYear(), fechaLanzamiento.getMonthValue() - 1, fechaLanzamiento.getDayOfMonth());
         model.setSelected(true);
     }

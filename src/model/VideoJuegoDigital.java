@@ -1,19 +1,17 @@
 package model;
 
+import java.time.LocalDate;
+
 public class VideoJuegoDigital extends VideoJuego  {
 
     private String claveActivacion;
-    private String expiracionClave;
-
     private Usuario usuario;
 
     public VideoJuegoDigital(int id, String nombre, double precio, int stock,
-                             String descripcion, String plataforma, String genero,
-                             String calificacionEdad, String fechaLanzamiento, String calveActivacion,
-                             String expiracionClave) {
-        super(id, nombre, precio, stock, descripcion, plataforma, genero, calificacionEdad, fechaLanzamiento);
+                             LocalDate fechaLanzamiento, String calveActivacion)
+    {
+        super(id, nombre, precio, stock, fechaLanzamiento);
         this.claveActivacion = calveActivacion;
-        this.expiracionClave = expiracionClave;
         this.usuario = usuario;
     }
 
@@ -23,14 +21,6 @@ public class VideoJuegoDigital extends VideoJuego  {
 
     public void setClaveActivacion(String claveActivacion) {
         this.claveActivacion = claveActivacion;
-    }
-
-    public String getExpiracionClave() {
-        return expiracionClave;
-    }
-
-    public void setExpiracionClave(String expiracionClave) {
-        this.expiracionClave = expiracionClave;
     }
 
     public Usuario getUsuario() {return this.usuario;}
@@ -48,7 +38,6 @@ public class VideoJuegoDigital extends VideoJuego  {
         return "VideoJuegoDigital{" +
                 "\n" + super.toString() +
                 ",\nclaveActivacion='" + claveActivacion + '\'' +
-                ",\nexpiracionClave='" + expiracionClave + '\'' +
                 ",\nnombreUsuario='" + usuario.getNombre() + '\'' +
                 "\n}";
     }
@@ -56,6 +45,6 @@ public class VideoJuegoDigital extends VideoJuego  {
 
     @Override
     public boolean validarVideoJuego() {
-        return getClaveActivacion() != null && getExpiracionClave() != null && !getClaveActivacion().isEmpty() && !getExpiracionClave().isEmpty();
+        return getClaveActivacion() != null && !getClaveActivacion().isEmpty();
     }
 }

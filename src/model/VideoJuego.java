@@ -1,28 +1,21 @@
 package model;
 
+import java.time.LocalDate;
+
 public abstract class VideoJuego {
 
     private int id;
     private String nombre;
     private double precio;
     private int stock;
-    private String descripcion;
-    private String plataforma;
-    private String genero;
-    private String calificacionEdad;
-    private String fechaLanzamiento;
+    private LocalDate fechaLanzamiento;
 
     public VideoJuego(int id, String nombre, double precio, int stock,
-                      String descripcion, String plataforma, String genero,
-                      String calificacionEdad, String fechaLanzamiento) {
+                      LocalDate fechaLanzamiento) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
-        this.descripcion = descripcion;
-        this.plataforma = plataforma;
-        this.genero = genero;
-        this.calificacionEdad = calificacionEdad;
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
@@ -58,43 +51,11 @@ public abstract class VideoJuego {
         this.stock = stock;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getPlataforma() {
-        return plataforma;
-    }
-
-    public void setPlataforma(String plataforma) {
-        this.plataforma = plataforma;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getCalificacionEdad() {
-        return calificacionEdad;
-    }
-
-    public void setCalificacionEdad(String calificacionEdad) {
-        this.calificacionEdad = calificacionEdad;
-    }
-
-    public String getFechaLanzamiento() {
+    public LocalDate getFechaLanzamiento() {
         return fechaLanzamiento;
     }
 
-    public void setFechaLanzamiento(String fechaLanzamiento) {
+    public void setFechaLanzamiento(LocalDate fechaLanzamiento) {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
@@ -110,10 +71,6 @@ public abstract class VideoJuego {
                 ",\nnombre='" + nombre + '\'' +
                 ",\nprecioNormal=" + precio +
                 ",\nstock=" + stock +
-                ",\ndescripcion='" + descripcion + '\'' +
-                ",\nplataforma='" + plataforma + '\'' +
-                ",\ngenero='" + genero + '\'' +
-                ",\ncalificacionEdad='" + calificacionEdad + '\'' +
                 ",\nfechaLanzamiento=" + fechaLanzamiento +
                 "\n}";
     }
