@@ -3,6 +3,8 @@ package view;
 import controller.ControllerVideoJuego;
 import model.IActualizable;
 import model.VideoJuego;
+import model.VideoJuegoDigital;
+import model.VideoJuegoFisico;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -58,13 +60,20 @@ public class GUIListar extends JFrame implements IGUIEstilos, IActualizable {
         model.addColumn("Nombre");
         model.addColumn("Stock");
         model.addColumn("Precio");
+        model.addColumn("Tipo");
 
         for (VideoJuego videoJuego : juegos) {
-            Object[] row = new Object[4];
+            Object[] row = new Object[5];
             row[0] = videoJuego.getId();
             row[1] = videoJuego.getNombre();
             row[2] = videoJuego.getStock();
             row[3] = videoJuego.getPrecio();
+
+            if (videoJuego instanceof VideoJuegoDigital) {
+                row[4] = "Digital";
+            } else if (videoJuego instanceof VideoJuegoFisico) {
+                row[4] = "Físico";
+            }
             model.addRow(row);
         }
 
